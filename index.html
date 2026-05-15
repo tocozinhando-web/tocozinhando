@@ -95,7 +95,7 @@
     <section class="hero" id="hero" aria-labelledby="hero-title">
       <div class="container hero__grid">
 
-        <!-- LEFT: Conteúdo e busca -->
+        <!-- LEFT: Conteúdo, Jurema acima da busca -->
         <div class="hero__content">
 
           <span class="hero__eyebrow" aria-hidden="true">Receitas para se orgulhar</span>
@@ -106,10 +106,28 @@
             <span>hoje?</span>
           </h1>
 
-          <p class="hero__sub">
-            Digite um ingrediente, prato, país ou vontade.<br>
-            A Jurema fareja uma receita pra você se orgulhar.
-          </p>
+          <!-- JUREMA — acima da barra de busca -->
+          <div class="hero__jurema-inline" id="jurema-wrapper" aria-label="Mascote Jurema">
+            <div class="jurema-stage" id="jurema-stage">
+              <img
+                id="jurema-img"
+                class="jurema-img"
+                src="assets/images/jurema/IMG_6914.png"
+                alt="Jurema, a salsichinha mascote do Tô Cozinhando"
+                width="200" height="220"
+              >
+              <div class="jurema-fallback" id="jurema-fallback" aria-hidden="true">
+                <div class="jurema-fallback__silhouette">
+                  <div class="jurema-fallback__bandana"></div>
+                </div>
+                <p class="jurema-fallback__name">Jurema</p>
+                <p class="jurema-fallback__pose" id="jurema-pose">sentada</p>
+              </div>
+            </div>
+            <div class="jurema-bubble jurema-bubble--inline" role="status" aria-live="polite" aria-atomic="true">
+              <p id="jurema-speech-text">Me conta o que tem aí. Eu farejo uma boa ideia.</p>
+            </div>
+          </div>
 
           <!-- Barra de busca -->
           <div class="search-box" id="search-box">
@@ -160,42 +178,6 @@
 
         </div>
         <!-- END LEFT -->
-
-        <!-- RIGHT: Jurema widget -->
-        <div class="hero__jurema" id="jurema-wrapper" aria-label="Mascote Jurema">
-
-          <!-- Stage da imagem -->
-          <div class="jurema-stage" id="jurema-stage">
-
-            <!-- Imagem real — substituída automaticamente conforme estado -->
-            <img
-              id="jurema-img"
-              class="jurema-img"
-              src="assets/images/jurema/jurema-3-4.png"
-              alt="Jurema, a salsichinha mascote do Tô Cozinhando"
-              width="380"
-              height="440"
-            >
-
-            <!-- Fallback CSS — aparece quando PNG não carrega (desenvolvimento) -->
-            <div class="jurema-fallback" id="jurema-fallback" aria-hidden="true">
-              <div class="jurema-fallback__silhouette">
-                <div class="jurema-fallback__bandana"></div>
-              </div>
-              <p class="jurema-fallback__name">Jurema</p>
-              <p class="jurema-fallback__pose" id="jurema-pose">3/4 sentada</p>
-            </div>
-
-          </div>
-          <!-- END stage -->
-
-          <!-- Balão de fala -->
-          <div class="jurema-bubble" role="status" aria-live="polite" aria-atomic="true">
-            <p id="jurema-speech-text">Me conta o que tem aí. Eu farejo uma boa ideia.</p>
-          </div>
-
-        </div>
-        <!-- END RIGHT -->
 
       </div>
     </section>
