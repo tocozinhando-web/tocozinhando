@@ -40,7 +40,7 @@ class Jurema {
     ];
     this.idleFrame    = 0;
     this.idleTimer    = null;
-    this.idleInterval = options.idleInterval || 130; // ms por frame
+    this.idleInterval = options.idleInterval || 250; // ms por frame (~4fps, natural para idle)
     this.imagesOk     = false; // flag: imagens verificadas
     // ────────────────────────────────────────────────────────────
 
