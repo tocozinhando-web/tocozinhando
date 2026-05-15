@@ -2537,3 +2537,91 @@ strong { font-weight: 700; color: var(--espresso); }
     margin: 0 auto;
   }
 }
+
+/* ============================================================
+   JUREMA INLINE — acima da barra de busca
+   ============================================================ */
+
+/* Layout: Jurema (imagem) + balão lado a lado */
+.hero__jurema-inline {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: 600px;
+}
+
+/* Stage menor — inline */
+.hero__jurema-inline .jurema-stage {
+  width: 120px;
+  height: 130px;
+  flex-shrink: 0;
+}
+
+.hero__jurema-inline .jurema-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  filter: drop-shadow(0 8px 20px rgba(47,36,29,0.18));
+}
+
+/* Fallback inline menor */
+.hero__jurema-inline .jurema-fallback {
+  width: 100%;
+  height: 100%;
+}
+
+.hero__jurema-inline .jurema-fallback__silhouette {
+  width: 80px;
+  height: 80px;
+  font-size: 2rem;
+}
+
+/* Balão de fala — à direita da Jurema, seta à esquerda */
+.jurema-bubble--inline {
+  flex: 1;
+  position: relative;
+  margin-bottom: var(--space-2);
+}
+
+/* Seta aponta para a esquerda (em direção à Jurema) */
+.jurema-bubble--inline::before {
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%) rotate(-45deg);
+  border-left-color: var(--sand);
+  border-top-color: var(--sand);
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  rotate: none;
+}
+
+/* Remove hero grid de 2 colunas — agora é 1 coluna só */
+.hero__grid {
+  grid-template-columns: 1fr !important;
+}
+
+/* Garante que hero__content ocupa largura total */
+.hero__content {
+  max-width: 640px;
+}
+
+@media (min-width: 768px) {
+  .hero__jurema-inline .jurema-stage {
+    width: 150px;
+    height: 165px;
+  }
+
+  .hero__jurema-inline {
+    gap: var(--space-5);
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero__jurema-inline .jurema-stage {
+    width: 180px;
+    height: 200px;
+  }
+}
