@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sobre — Tô Cozinhando</title>
+  <meta name="description" content="Conheça o Tô Cozinhando, a Jurema e a história por trás do ecossistema culinário brasileiro que nasceu para te ajudar a cozinhar com orgulho.">
+  <meta name="robots" content="index, follow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🐾</text></svg>">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header" id="header" role="banner">
+    <div class="container header__inner">
+      <a href="index.html" class="logo" aria-label="Tô Cozinhando — página inicial">
+        <span class="logo__to">Tô</span>&nbsp;Cozinhando<span class="logo__paw" aria-hidden="true">🐾</span>
+      </a>
+      <nav class="nav" id="nav" aria-label="Navegação principal">
+        <a href="receitas.html"                  class="nav__link">Receitas</a>
+        <a href="receitas.html?area=pra-ja"      class="nav__link">Pra Já</a>
+        <a href="receitas.html?area=pelo-mundo"  class="nav__link">Pelo Mundo</a>
+        <a href="receitas.html?area=mini-chef"   class="nav__link">Mini Chef</a>
+        <a href="sobre.html"                     class="nav__link">Sobre</a>
+      </nav>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-mobile" type="button">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <nav class="nav-mobile" id="nav-mobile" aria-hidden="true" aria-label="Menu mobile">
+    <a href="receitas.html"                 class="nav-mobile__link">Receitas</a>
+    <a href="receitas.html?area=pra-ja"     class="nav-mobile__link">⚡ Pra Já</a>
+    <a href="receitas.html?area=mini-chef"  class="nav-mobile__link">👧 Mini Chef</a>
+    <a href="receitas.html?area=leve"       class="nav-mobile__link">🥗 Leve de Verdade</a>
+    <a href="receitas.html?area=pelo-mundo" class="nav-mobile__link">🌍 Pelo Mundo</a>
+    <a href="receitas.html?area=familia"    class="nav-mobile__link">🏠 Receitas de Família</a>
+    <a href="sobre.html"                    class="nav-mobile__link">Sobre / A Jurema</a>
+  </nav>
+
+  <main id="main">
+
+    <!-- HERO -->
+    <section class="sobre-hero" aria-labelledby="sobre-title">
+      <div class="container">
+        <div class="sobre-hero__content">
+          <span class="sobre-hero__label">Receitas para se orgulhar</span>
+          <h1 class="sobre-hero__title" id="sobre-title">
+            A cozinha não<br>precisa ser perfeita<br>
+            <span style="color:var(--terracota)">para ser boa.</span>
+          </h1>
+          <p class="sobre-hero__sub">
+            O Tô Cozinhando nasceu para ajudar pessoas reais a cozinharem mais,
+            com confiança, leveza e a companhia de uma salsichinha muito especial.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MANIFESTO -->
+    <div class="container">
+      <div class="manifesto-block reveal">
+        <blockquote>
+          "De 'não sei o que fazer' para 'já sei, tô cozinhando.'<br>
+           E depois para 'ficou bom, eu que fiz.'"
+        </blockquote>
+        <cite>— A jornada completa do Tô Cozinhando</cite>
+      </div>
+    </div>
+
+    <!-- JUREMA BIO -->
+    <section class="section section--sand" id="jurema" aria-labelledby="jurema-bio-title">
+      <div class="container">
+        <div class="jurema-bio reveal">
+
+          <!-- Imagem / fallback -->
+          <div class="jurema-bio__img-wrap">
+            <img
+              class="jurema-bio__img"
+              src="assets/images/jurema/jurema-perfil.png"
+              alt="Jurema, a salsichinha mascote do Tô Cozinhando, em pose de perfil com bandana terracota"
+              width="260" height="300"
+              onerror="this.style.display='none';document.getElementById('jurema-bio-fallback').style.display='flex'"
+            >
+            <div id="jurema-bio-fallback" class="jurema-bio__placeholder" style="display:none;" aria-hidden="true">
+              🐾
+            </div>
+          </div>
+
+          <!-- Texto -->
+          <div class="jurema-bio__content">
+            <span class="label">Nossa mascote</span>
+            <h2 class="jurema-bio__title" id="jurema-bio-title">Conheça a Jurema.</h2>
+            <div class="section-divider" aria-hidden="true"></div>
+            <p class="jurema-bio__text">
+              Jurema é uma salsichinha preta, curiosa, carinhosa e levemente gulosa.
+              Ela não é apenas a mascote do Tô Cozinhando — ela é a personagem viva da interface.
+              Reage ao que você faz, sugere receitas, comemora quando você termina e nunca
+              te julga por queimar a cebola de vez em quando.
+            </p>
+            <p class="jurema-bio__text">
+              O nome tem origem indígena brasileira (da planta sagrada Jurema) —
+              forte, raiz, pertencimento. É o nome certo para uma mascote com
+              identidade brasileira e memória afetiva.
+            </p>
+            <p class="jurema-bio__text">
+              Ela foi inspirada em uma cadelinha real da família.
+              Então, quando ela parece estar olhando pra você com carinho genuíno —
+              é porque está mesmo.
+            </p>
+
+            <!-- Frase da Jurema -->
+            <div class="jurema-tip">
+              <span class="jurema-tip__icon" aria-hidden="true">🐾</span>
+              <p>"A cozinha não precisa ser perfeita para dar certo. Precisa ser sua."</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SOBRE A MARCA -->
+    <section class="section" id="marca" aria-labelledby="marca-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="label">O projeto</span>
+          <h2 id="marca-title">O que é o Tô Cozinhando?</h2>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr;gap:2rem;max-width:680px;" class="reveal" data-delay="100">
+          <p style="color:var(--taupe);line-height:1.8;">
+            O Tô Cozinhando é um <strong>ecossistema digital culinário</strong> que nasceu como site
+            de receitas e cresce como plataforma — abrangendo busca inteligente, app,
+            newsletter, comunidade e agente de IA.
+          </p>
+          <p style="color:var(--taupe);line-height:1.8;">
+            O produto central responde uma pergunta cotidiana com leveza, tecnologia e afeto:
+            <em>"O que eu faço hoje?"</em>
+          </p>
+          <p style="color:var(--taupe);line-height:1.8;">
+            Não somos um repositório de receitas. Somos uma experiência de descoberta
+            culinária guiada por uma mascote viva, busca inteligente e identidade de
+            marca única no mercado.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PILARES -->
+    <section class="section section--sand" aria-labelledby="pilares-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="label">Nossos valores</span>
+          <h2 id="pilares-title">Cozinhar com orgulho<br>começa por aqui.</h2>
+        </div>
+
+        <div class="pillars-grid reveal" data-delay="100">
+          <article class="pillar-card">
+            <span class="pillar-icon" aria-hidden="true">🍳</span>
+            <div>
+              <h3 class="pillar-title">Acessível</h3>
+              <p class="pillar-desc">Para quem tem pouco tempo, pouca experiência ou poucos ingredientes. Nada de pré-requisito para entrar na cozinha.</p>
+            </div>
+          </article>
+
+          <article class="pillar-card">
+            <span class="pillar-icon" aria-hidden="true">😊</span>
+            <div>
+              <h3 class="pillar-title">Acolhedora</h3>
+              <p class="pillar-desc">Sem julgamento. O usuário se sente acompanhado, não cobrado. A Jurema está do lado — não em cima.</p>
+            </div>
+          </article>
+
+          <article class="pillar-card">
+            <span class="pillar-icon" aria-hidden="true">⚡</span>
+            <div>
+              <h3 class="pillar-title">Útil de verdade</h3>
+              <p class="pillar-desc">Busca inteligente, tags precisas, Modo Cozinha e receitas que funcionam na vida real — não só no feed.</p>
+            </div>
+          </article>
+
+          <article class="pillar-card">
+            <span class="pillar-icon" aria-hidden="true">🌍</span>
+            <div>
+              <h3 class="pillar-title">Curiosa</h3>
+              <p class="pillar-desc">Receitas do Brasil e do mundo, com história, contexto e adaptações para os ingredientes que você tem em casa.</p>
+            </div>
+          </article>
+
+          <article class="pillar-card">
+            <span class="pillar-icon" aria-hidden="true">🏆</span>
+            <div>
+              <h3 class="pillar-title">Orgulho</h3>
+              <p class="pillar-desc">A sensação que buscamos em cada receita: "Ficou bom. Fui eu que fiz." Isso não tem preço — e a gente sabe disso.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="section" aria-label="Chamada para ação">
+      <div class="container" style="text-align:center;">
+        <div class="reveal">
+          <span class="label">Pronto pra começar?</span>
+          <h2 style="margin:1rem 0 1.5rem;color:var(--espresso);">
+            Bora fazer bonito<br>na cozinha?
+          </h2>
+          <p style="color:var(--taupe);margin-bottom:2rem;max-width:400px;margin-left:auto;margin-right:auto;">
+            Escolha uma receita, siga os passos com a Jurema ao lado e depois
+            diga: <em>eu que fiz.</em>
+          </p>
+          <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+            <a href="index.html" class="btn btn-primary">Buscar uma receita</a>
+            <a href="receitas.html" class="btn btn-secondary">Ver todas as receitas</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <p class="footer__logo"><span>Tô</span> Cozinhando</p>
+          <p class="footer__slogan">Receitas para se orgulhar.</p>
+          <p class="footer__domains">tocozinhando.com · tocozinhando.com.br</p>
+        </div>
+        <nav class="footer__nav" aria-label="Áreas">
+          <p class="footer__nav-title">Explore</p>
+          <a href="receitas.html?area=pra-ja"     class="footer__link">⚡ Pra Já</a>
+          <a href="receitas.html?area=mini-chef"  class="footer__link">👧 Mini Chef</a>
+          <a href="receitas.html?area=leve"       class="footer__link">🥗 Leve de Verdade</a>
+          <a href="receitas.html?area=pelo-mundo" class="footer__link">🌍 Pelo Mundo</a>
+          <a href="receitas.html?area=familia"    class="footer__link">🏠 Receitas de Família</a>
+        </nav>
+        <nav class="footer__nav" aria-label="Links">
+          <p class="footer__nav-title">Contato</p>
+          <a href="mailto:tocozinhandoreceitas@gmail.com" class="footer__link">tocozinhandoreceitas@gmail.com</a>
+          <a href="receitas.html" class="footer__link">Todas as receitas</a>
+          <a href="index.html"    class="footer__link">Início</a>
+        </nav>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">&copy; 2025 Tô Cozinhando. Feito com 🍳 e carinho.</p>
+        <p class="footer__jurema">Jurema aprova. 🐾</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/search.js"></script>
+  <script src="assets/js/jurema.js"></script>
+  <script src="assets/js/utils.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      window.TC.initHeaderScroll();
+      window.TC.initMobileNav();
+      window.TC.initScrollReveal();
+    });
+  </script>
+</body>
+</html>

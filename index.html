@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Primary -->
+  <title>Tô Cozinhando — Receitas para se orgulhar</title>
+  <meta name="description" content="Receitas brasileiras e do mundo para se orgulhar. Busca inteligente com a Jurema, a mascote que te acompanha na cozinha. Pra Já, Mini Chef, Leve de Verdade, Pelo Mundo e muito mais.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://tocozinhando.com.br/">
+
+  <!-- Open Graph / Social -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://tocozinhando.com.br/">
+  <meta property="og:title"       content="Tô Cozinhando — Receitas para se orgulhar">
+  <meta property="og:description" content="Busque por ingrediente, prato ou país. A Jurema te ajuda a encontrar uma receita pra se orgulhar.">
+  <meta property="og:image"       content="https://tocozinhando.com.br/assets/images/brand/og-image.jpg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="Tô Cozinhando — Receitas para se orgulhar">
+  <meta name="twitter:description" content="Busque por ingrediente, prato ou país. A Jurema te ajuda a encontrar uma receita pra se orgulhar.">
+
+  <!-- Favicon (placeholder) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🐾</text></svg>">
+
+  <!-- Google Fonts pré-conexão -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+  <!-- ============================================================
+       HEADER
+  ============================================================ -->
+  <header class="header" id="header" role="banner">
+    <div class="container header__inner">
+
+      <!-- Logo -->
+      <a href="/" class="logo" aria-label="Tô Cozinhando — página inicial">
+        <span class="logo__to">Tô</span>&nbsp;Cozinhando<span class="logo__paw" aria-hidden="true">🐾</span>
+      </a>
+
+      <!-- Nav desktop -->
+      <nav class="nav" id="nav" aria-label="Navegação principal">
+        <a href="receitas.html"                  class="nav__link">Receitas</a>
+        <a href="receitas.html?area=pra-ja"      class="nav__link">Pra Já</a>
+        <a href="receitas.html?area=pelo-mundo"  class="nav__link">Pelo Mundo</a>
+        <a href="receitas.html?area=mini-chef"   class="nav__link">Mini Chef</a>
+        <a href="sobre.html"                     class="nav__link">Sobre</a>
+      </nav>
+
+      <!-- Botão mobile menu -->
+      <button
+        class="nav-toggle"
+        id="nav-toggle"
+        aria-label="Abrir menu de navegação"
+        aria-expanded="false"
+        aria-controls="nav-mobile"
+        type="button"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+    </div>
+  </header>
+
+  <!-- Nav mobile (drawer) -->
+  <nav class="nav-mobile" id="nav-mobile" aria-hidden="true" aria-label="Menu mobile">
+    <a href="receitas.html"                 class="nav-mobile__link">Receitas</a>
+    <a href="receitas.html?area=pra-ja"     class="nav-mobile__link">⚡ Pra Já</a>
+    <a href="receitas.html?area=mini-chef"  class="nav-mobile__link">👧 Mini Chef</a>
+    <a href="receitas.html?area=leve"       class="nav-mobile__link">🥗 Leve de Verdade</a>
+    <a href="receitas.html?area=pelo-mundo" class="nav-mobile__link">🌍 Pelo Mundo</a>
+    <a href="receitas.html?area=familia"    class="nav-mobile__link">🏠 Receitas de Família</a>
+    <a href="sobre.html"                    class="nav-mobile__link">Sobre / A Jurema</a>
+  </nav>
+
+
+  <!-- ============================================================
+       MAIN
+  ============================================================ -->
+  <main id="main" tabindex="-1">
+
+    <!-- ==========================================================
+         HERO — busca central + Jurema reativa
+    ========================================================== -->
+    <section class="hero" id="hero" aria-labelledby="hero-title">
+      <div class="container hero__grid">
+
+        <!-- LEFT: Conteúdo e busca -->
+        <div class="hero__content">
+
+          <span class="hero__eyebrow" aria-hidden="true">Receitas para se orgulhar</span>
+
+          <h1 class="hero__title" id="hero-title">
+            O que vai sair<br>
+            da sua cozinha<br>
+            <span>hoje?</span>
+          </h1>
+
+          <p class="hero__sub">
+            Digite um ingrediente, prato, país ou vontade.<br>
+            A Jurema fareja uma receita pra você se orgulhar.
+          </p>
+
+          <!-- Barra de busca -->
+          <div class="search-box" id="search-box">
+            <form
+              class="search-form"
+              id="search-form"
+              role="search"
+              autocomplete="off"
+              aria-label="Buscar receitas"
+            >
+              <label for="search-input" class="sr-only">Buscar receitas</label>
+              <input
+                type="search"
+                id="search-input"
+                class="search-input"
+                name="q"
+                placeholder="frango rápido, bolo sem leite, comida mexicana…"
+                autocomplete="off"
+                autocorrect="off"
+                spellcheck="false"
+                maxlength="100"
+                aria-label="Digite para buscar receitas"
+              >
+              <button type="submit" class="search-btn" aria-label="Buscar">
+                <!-- Ícone busca (lupa) -->
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <circle cx="11" cy="11" r="8"/>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+              </button>
+            </form>
+          </div>
+
+          <!-- Quick tags — atalhos de busca -->
+          <div
+            class="quick-tags"
+            id="quick-tags"
+            role="group"
+            aria-label="Buscar por categoria"
+          >
+            <button class="quick-tag" data-q="15 minutos" type="button">⚡ 15 min</button>
+            <button class="quick-tag" data-q="vegetariana" type="button">🥗 Vegetariana</button>
+            <button class="quick-tag" data-q="frango" type="button">🍗 Frango</button>
+            <button class="quick-tag" data-q="sobremesa" type="button">🍮 Sobremesas</button>
+            <button class="quick-tag" data-q="mexicana" type="button">🌮 México</button>
+            <button class="quick-tag" data-q="infantil" type="button">👧 Mini Chef</button>
+          </div>
+
+        </div>
+        <!-- END LEFT -->
+
+        <!-- RIGHT: Jurema widget -->
+        <div class="hero__jurema" id="jurema-wrapper" aria-label="Mascote Jurema">
+
+          <!-- Stage da imagem -->
+          <div class="jurema-stage" id="jurema-stage">
+
+            <!-- Imagem real — substituída automaticamente conforme estado -->
+            <img
+              id="jurema-img"
+              class="jurema-img"
+              src="assets/images/jurema/jurema-3-4.png"
+              alt="Jurema, a salsichinha mascote do Tô Cozinhando"
+              width="380"
+              height="440"
+            >
+
+            <!-- Fallback CSS — aparece quando PNG não carrega (desenvolvimento) -->
+            <div class="jurema-fallback" id="jurema-fallback" aria-hidden="true">
+              <div class="jurema-fallback__silhouette">
+                <div class="jurema-fallback__bandana"></div>
+              </div>
+              <p class="jurema-fallback__name">Jurema</p>
+              <p class="jurema-fallback__pose" id="jurema-pose">3/4 sentada</p>
+            </div>
+
+          </div>
+          <!-- END stage -->
+
+          <!-- Balão de fala -->
+          <div class="jurema-bubble" role="status" aria-live="polite" aria-atomic="true">
+            <p id="jurema-speech-text">Me conta o que tem aí. Eu farejo uma boa ideia.</p>
+          </div>
+
+        </div>
+        <!-- END RIGHT -->
+
+      </div>
+    </section>
+    <!-- END HERO -->
+
+
+    <!-- ==========================================================
+         RESULTADOS DE BUSCA (oculto por padrão)
+    ========================================================== -->
+    <section
+      class="results-section"
+      id="results-section"
+      aria-label="Resultados da busca"
+      aria-live="polite"
+      hidden
+    >
+      <div class="container">
+
+        <div class="results-header">
+          <p class="results-summary" id="results-summary" aria-live="polite">
+            Resultados
+          </p>
+          <button
+            class="results-close"
+            id="results-close"
+            type="button"
+            aria-label="Fechar resultados"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" focusable="false">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6"  y1="6" x2="18" y2="18"/>
+            </svg>
+            Fechar
+          </button>
+        </div>
+
+        <!-- Cards injetados pelo app.js -->
+        <div class="results-grid" id="results-grid" role="list"></div>
+
+      </div>
+    </section>
+
+
+    <!-- ==========================================================
+         ÁREAS — 6 cards de navegação por área
+    ========================================================== -->
+    <section class="section section--sand" id="areas" aria-labelledby="areas-title">
+      <div class="container">
+
+        <div class="section-head reveal">
+          <span class="label">Explore o ecossistema</span>
+          <h2 id="areas-title">Pra cada dia,<br>uma área diferente</h2>
+        </div>
+
+        <!-- Cards injetados pelo app.js -->
+        <div
+          class="areas-grid reveal"
+          id="areas-grid"
+          data-delay="100"
+          role="list"
+          aria-label="Áreas de receitas"
+        ></div>
+
+      </div>
+    </section>
+
+
+    <!-- ==========================================================
+         RECEITAS EM DESTAQUE
+    ========================================================== -->
+    <section class="section" id="featured" aria-labelledby="featured-title">
+      <div class="container">
+
+        <div class="section-head section-head--row reveal">
+          <div>
+            <span class="label">Receitas em destaque</span>
+            <h2 id="featured-title">Escolha uma e<br>comece agora</h2>
+          </div>
+          <a href="receitas.html" class="btn-ghost" aria-label="Ver todas as receitas">
+            Ver todas →
+          </a>
+        </div>
+
+        <!-- Cards injetados pelo app.js -->
+        <div
+          class="recipes-grid reveal"
+          id="featured-grid"
+          data-delay="150"
+          role="list"
+          aria-label="Receitas em destaque"
+        ></div>
+
+      </div>
+    </section>
+
+
+    <!-- ==========================================================
+         MODO COZINHA — CTA dark
+    ========================================================== -->
+    <section class="section section-modo" id="modo-cozinha" aria-labelledby="modo-title">
+      <div class="container">
+        <div class="modo-inner reveal">
+
+          <!-- Conteúdo -->
+          <div class="modo-content">
+            <span class="label label--light">Modo Cozinha</span>
+            <h2 class="modo-title" id="modo-title">
+              Cozinhe com o<br>celular do seu lado.
+            </h2>
+            <p class="modo-sub">
+              Passo a passo grande, tela que não apaga, vire o celular
+              e a receita acompanha. Feito pra funcionar com as mãos
+              ocupadas de farinha.
+            </p>
+            <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+              <a href="#" class="btn btn-light">Experimentar o modo</a>
+              <a href="sobre.html" class="btn" style="color:rgba(255,255,255,0.6); border-color:rgba(255,255,255,0.2); background:transparent">Saber mais</a>
+            </div>
+          </div>
+
+          <!-- Mockup de celular -->
+          <div class="modo-visual" aria-hidden="true">
+            <div class="phone-mock" role="presentation">
+
+              <!-- Barra de progresso / título -->
+              <div class="phone-mock__bar">
+                <span class="phone-mock__label">Frango Assado de Domingo</span>
+                <div class="phone-mock__progress" aria-hidden="true">
+                  <span class="active"></span>
+                  <span class="active"></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+
+              <!-- Passo ativo -->
+              <div class="phone-step">
+                <span class="step-num">02</span>
+                <p class="step-text">
+                  Adicione alho e cebola picados e refogue por mais 2 minutos,
+                  mexendo sempre.
+                </p>
+              </div>
+
+              <!-- Próximo passo (opaco) -->
+              <div class="phone-step phone-step--next">
+                <span class="step-num">03</span>
+                <p class="step-text">
+                  Cubra com água quente e tampe. Fogo baixo por 18 min.
+                </p>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==========================================================
+         JUREMA INTRO — quem é ela
+    ========================================================== -->
+    <section class="section section-jurema" id="sobre-jurema" aria-labelledby="jurema-intro-title">
+      <div class="container">
+        <div class="jurema-intro-grid reveal">
+
+          <!-- Imagem / placeholder -->
+          <div class="jurema-intro-img">
+            <img
+              src="assets/images/jurema/jurema-cozinhando.png"
+              alt="Jurema cozinhando feliz com um avental"
+              width="300"
+              height="340"
+              onerror="this.style.display='none'; document.getElementById('jurema-intro-fallback').style.display='flex'"
+            >
+            <div
+              id="jurema-intro-fallback"
+              class="jurema-intro-placeholder"
+              style="display:none"
+              aria-hidden="true"
+            >
+              🍳
+            </div>
+          </div>
+
+          <!-- Texto -->
+          <div class="jurema-intro-content">
+            <span class="label">Nossa mascote</span>
+            <h2 id="jurema-intro-title">Conheça a Jurema.</h2>
+            <div class="section-divider" aria-hidden="true"></div>
+            <p>
+              Ela é uma salsichinha preta, curiosa, carinhosa e levemente gulosa.
+              Não é só uma mascote — é quem te acompanha na cozinha.
+            </p>
+            <p>
+              Ela reage ao que você faz, sugere receitas, comemora quando você termina
+              e nunca te julga por queimar a cebola de vez em quando.
+            </p>
+            <!-- Dica afetiva da Jurema -->
+            <div class="jurema-tip">
+              <span class="jurema-tip__icon" aria-hidden="true">🐾</span>
+              <p>"A cozinha não precisa ser perfeita. Precisa ser sua."</p>
+            </div>
+            <a href="sobre.html" class="btn btn-secondary">Saber mais sobre ela</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==========================================================
+         NEWSLETTER
+    ========================================================== -->
+    <section class="section section-newsletter" id="newsletter" aria-labelledby="newsletter-title">
+      <div class="container">
+        <div class="newsletter-inner reveal">
+
+          <span class="label">Hoje tem cheiro bom por aí</span>
+
+          <h2 id="newsletter-title">
+            Receba receitas<br>toda semana.
+          </h2>
+
+          <p>
+            Sem spam. Só uma receita boa, na hora certa.<br>
+            Direto da Jurema pra você.
+          </p>
+
+          <form
+            class="newsletter-form"
+            id="newsletter-form"
+            aria-label="Formulário de inscrição na newsletter"
+            novalidate
+          >
+            <label for="newsletter-email" class="sr-only">Seu e-mail</label>
+            <input
+              class="newsletter-input"
+              type="email"
+              id="newsletter-email"
+              name="email"
+              placeholder="seu@email.com"
+              required
+              autocomplete="email"
+            >
+            <button type="submit" class="btn btn-primary">Quero receber</button>
+          </form>
+
+          <p class="newsletter-disclaimer">
+            Sem spam. Jurema promete. Cancele quando quiser. 🐾
+          </p>
+
+        </div>
+      </div>
+    </section>
+
+
+  </main>
+  <!-- END MAIN -->
+
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+
+      <div class="footer__grid">
+
+        <!-- Identidade da marca -->
+        <div class="footer__brand">
+          <p class="footer__logo">
+            <span>Tô</span> Cozinhando
+          </p>
+          <p class="footer__slogan">Receitas para se orgulhar.</p>
+          <p class="footer__domains">tocozinhando.com · tocozinhando.com.br</p>
+        </div>
+
+        <!-- Links de áreas -->
+        <nav class="footer__nav" aria-label="Áreas de receitas">
+          <p class="footer__nav-title">Explore</p>
+          <a href="receitas.html?area=pra-ja"     class="footer__link">⚡ Pra Já</a>
+          <a href="receitas.html?area=mini-chef"  class="footer__link">👧 Mini Chef</a>
+          <a href="receitas.html?area=leve"       class="footer__link">🥗 Leve de Verdade</a>
+          <a href="receitas.html?area=pelo-mundo" class="footer__link">🌍 Pelo Mundo</a>
+          <a href="receitas.html?area=familia"    class="footer__link">🏠 Receitas de Família</a>
+        </nav>
+
+        <!-- Links institucionais -->
+        <nav class="footer__nav" aria-label="Links institucionais">
+          <p class="footer__nav-title">Sobre</p>
+          <a href="sobre.html"           class="footer__link">Quem é a Jurema</a>
+          <a href="sobre.html#marca"     class="footer__link">A marca</a>
+          <a href="#newsletter"          class="footer__link">Newsletter</a>
+          <a href="receitas.html"        class="footer__link">Todas as receitas</a>
+        </nav>
+
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="footer__bottom">
+        <p class="footer__copy">
+          &copy; 2025 Tô Cozinhando. Feito com 🍳 e carinho.
+        </p>
+        <p class="footer__jurema">Jurema aprova. 🐾</p>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- ============================================================
+       SCRIPTS — ordem importa: dados → jurema → app
+  ============================================================ -->
+  <script src="assets/js/search.js"></script>
+  <script src="assets/js/utils.js"></script>
+  <script src="assets/js/jurema.js"></script>
+  <script src="assets/js/app.js"></script>
+
+</body>
+</html>
