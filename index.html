@@ -491,6 +491,17 @@
       100% { background-position: -200% 0; }
     }
 
+
+    /* Vídeo da Jurema — mesmas dimensões da imagem */
+    .jurema-v2-video {
+      width: clamp(300px, 52vw, 560px);
+      height: auto;
+      object-fit: contain;
+      display: block;
+      background: transparent;
+      /* Remove controles e barra de progresso em alguns browsers */
+      pointer-events: none;
+    }
     /* ══════════════════════════════════════════════════════════
        RESPONSIVO
     ══════════════════════════════════════════════════════════ */
@@ -822,13 +833,24 @@
           </div>
 
           <div class="jurema-v2-img">
-            <img
-              src="assets/imagens/jurema/IMG_6907.PNG"
-              alt="Jurema sentada, segurando uma colher de pau, pronta para cozinhar"
-              width="520" height="580"
-              loading="lazy"
-              onerror="this.style.display='none'"
+            <video
+              class="jurema-v2-video"
+              autoplay
+              loop
+              muted
+              playsinline
+              disablepictureinpicture
+              preload="auto"
+              aria-label="Jurema, a mascote do Tô Cozinhando, se apresentando"
             >
+              <source src="assets/imagens/jurema/jurema-apresentacao.webm" type="video/webm">
+              <!-- Fallback: imagem caso o vídeo não carregue -->
+              <img
+                src="assets/imagens/jurema/IMG_6907.PNG"
+                alt="Jurema sentada, segurando uma colher de pau"
+                loading="lazy"
+              >
+            </video>
           </div>
 
         </div>
