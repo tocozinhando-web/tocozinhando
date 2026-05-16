@@ -35,7 +35,7 @@ class Jurema {
 
     const loader = new Image();
     loader.onload = () => {
-      const limpa = this._floodFill(loader, 40);
+      const limpa = this._floodFill(loader, 8);
       this.img.src = limpa || this.imgPath;
       this.img.style.display = 'block';
       if (this.fallback) this.fallback.style.display = 'none';
@@ -52,7 +52,7 @@ class Jurema {
      O pelo escuro da Jurema, por estar isolado no interior,
      nunca é tocado.
   ──────────────────────────────────────────────────────────── */
-  _floodFill(imgEl, threshold) {
+  _floodFill(imgEl, threshold = 8) {
     try {
       const W = imgEl.naturalWidth, H = imgEl.naturalHeight;
       if (!W || !H) return null;
