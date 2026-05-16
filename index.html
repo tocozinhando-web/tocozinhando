@@ -516,6 +516,200 @@
       :root { --section-mx: 28px; }
       .footer-v2__grid { grid-template-columns: 2fr 1fr 1fr 1fr 1fr; }
     }
+
+    /* ══════════════════════════════════════════════════════════
+       VÍDEO DA JUREMA — sem botão de play
+    ══════════════════════════════════════════════════════════ */
+    .jurema-v2-video {
+      width: clamp(300px, 52vw, 560px);
+      height: auto; display: block; background: transparent;
+      pointer-events: none;
+    }
+    /* Remove controles nativos do browser */
+    .jurema-v2-video::-webkit-media-controls,
+    .jurema-v2-video::-webkit-media-controls-enclosure,
+    .jurema-v2-video::-webkit-media-controls-panel,
+    .jurema-v2-video::-webkit-media-controls-overlay-play-button,
+    .jurema-v2-video::-webkit-media-controls-play-button {
+      display: none !important;
+      -webkit-appearance: none;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       NEWSLETTER — botão centralizado no mobile
+    ══════════════════════════════════════════════════════════ */
+    @media (max-width: 520px) {
+      .newsletter-form {
+        flex-direction: column;
+        align-items: center;
+      }
+      .newsletter-input { width: 100%; min-width: unset; }
+      .newsletter-form .btn-primary { width: auto; align-self: center; }
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       IPHONE MOCKUP
+    ══════════════════════════════════════════════════════════ */
+    .iphone-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 0;
+    }
+
+    .iphone-frame {
+      width: 240px;
+      height: 490px;
+      background: linear-gradient(145deg, #1c1c1e 0%, #2c2c2e 100%);
+      border-radius: 46px;
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow:
+        0 0 0 1px rgba(0,0,0,.6),
+        0 0 0 2px rgba(255,255,255,.05),
+        0 32px 80px rgba(0,0,0,.55),
+        inset 0 1px 0 rgba(255,255,255,.08);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Dynamic Island */
+    .iphone-island {
+      position: absolute;
+      top: 11px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 88px;
+      height: 26px;
+      background: #000;
+      border-radius: 20px;
+      z-index: 10;
+    }
+
+    /* Screen */
+    .iphone-screen {
+      position: absolute;
+      inset: 4px;
+      background: #ECECEC;
+      border-radius: 43px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* App bar */
+    .iphone-app-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 48px 16px 10px;   /* 48px = space para Dynamic Island */
+      background: #fff;
+      border-bottom: 1px solid rgba(0,0,0,.06);
+      flex-shrink: 0;
+    }
+
+    .iphone-app-logo {
+      font-family: var(--font-body);
+      font-size: .6rem;
+      font-weight: 800;
+      color: var(--espresso);
+      letter-spacing: .04em;
+    }
+
+    .iphone-app-icon { font-size: .75rem; opacity: .4; }
+
+    /* Viewport dos cards — clip fixo */
+    .iphone-cards-viewport {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Track que sobe infinitamente */
+    .iphone-cards-track {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 10px 10px 10px;
+      animation: scroll-cards 14s linear infinite;
+      will-change: transform;
+    }
+
+    @keyframes scroll-cards {
+      0%   { transform: translateY(0); }
+      100% { transform: translateY(-50%); }
+    }
+
+    /* Cards dentro do iPhone */
+    .iphone-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      box-shadow: 0 2px 8px rgba(0,0,0,.07);
+      flex-shrink: 0;
+    }
+
+    /* Faixa colorida à esquerda */
+    .iphone-card__color {
+      width: 6px;
+      background: var(--c, #C8603A);
+      flex-shrink: 0;
+    }
+
+    .iphone-card__body {
+      padding: 10px 12px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .iphone-card__name {
+      font-family: var(--font-display);
+      font-size: .65rem;
+      font-weight: 700;
+      color: var(--espresso);
+      line-height: 1.3;
+      margin-bottom: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .iphone-card__meta {
+      font-size: .55rem;
+      color: var(--taupe);
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .iphone-card__tag {
+      display: inline-block;
+      background: var(--c, #C8603A);
+      color: #fff;
+      font-size: .5rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 20px;
+      opacity: .9;
+    }
+
+    /* Home indicator */
+    .iphone-home-bar {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: rgba(255,255,255,.3);
+      border-radius: 3px;
+      z-index: 10;
+    }
+
+    @media (min-width: 768px) {
+      .iphone-frame { width: 260px; height: 530px; }
+    }
   </style>
 </head>
 <body>
@@ -752,25 +946,127 @@
                 </a>
               </div>
             </div>
-            <div class="modo-visual" aria-hidden="true">
-              <div class="phone-mock" role="presentation">
-                <div class="phone-mock__bar">
-                  <span class="phone-mock__label">Frango Assado de Domingo</span>
-                  <div class="phone-mock__progress">
-                    <span class="active"></span><span class="active"></span>
-                    <span></span><span></span>
+            <!-- iPhone mockup com cards rolando -->
+            <div class="iphone-wrap" aria-hidden="true" role="presentation">
+              <div class="iphone-frame">
+                <!-- Dynamic Island -->
+                <div class="iphone-island"></div>
+                <!-- Screen -->
+                <div class="iphone-screen">
+                  <!-- App header dentro do iPhone -->
+                  <div class="iphone-app-bar">
+                    <span class="iphone-app-logo">🐾 Tô Cozinhando</span>
+                    <span class="iphone-app-icon">⚙️</span>
+                  </div>
+                  <!-- Cards rolando -->
+                  <div class="iphone-cards-viewport">
+                    <div class="iphone-cards-track">
+
+                      <!-- Originais -->
+                      <div class="iphone-card" style="--c:#C8603A">
+                        <div class="iphone-card__color"></div>
+                        <div class="iphone-card__body">
+                          <p class="iphone-card__name">Frango Assado de Domingo</p>
+                          <p class="iphone-card__meta">⏱ 80 min · 4 porções · Fácil</p>
+                          <span class="iphone-card__tag">🏠 Família</span>
+                        </div>
+                      </div>
+                      <div class="iphone-card" style="--c:#8FA87A">
+                        <div class="iphone-card__color"></div>
+                        <div class="iphone-card__body">
+                          <p class="iphone-card__name">Bolo de Banana com Aveia</p>
+                          <p class="iphone-card__meta">⏱ 45 min · 8 porções · Iniciante</p>
+                          <span class="iphone-card__tag">🥗 Leve</span>
+                        </div>
+                      </div>
+                      <div class="iphone-card" style="--c:#2A6B6F">
+                        <div class="iphone-card__color"></div>
+                        <div class="iphone-card__body">
+                          <p class="iphone-card__name">Curry de Grão de Bico</p>
+                          <p class="iphone-card__meta">⏱ 35 min · 3 porções · Fácil</p>
+                          <span class="iphone-card__tag">🌍 Pelo Mundo</span>
+                        </div>
+                      </div>
+                      <div class="iphone-card" style="--c:#D4844A">
+                        <div class="iphone-card__color"></div>
+                        <div class="iphone-card__body">
+                          <p class="iphone-card__name">Ovos Mexidos Cremosos</p>
+                          <p class="iphone-card__meta">⏱ 10 min · 1 porção · Iniciante</p>
+                          <span class="iphone-card__tag">⚡ Pra Já</span>
+                        </div>
+                      </div>
+                      <div class="iphone-card" style="--c:#A94E2E">
+                        <div class="iphone-card__color"></div>
+                        <div class="iphone-card__body">
+                          <p class="iphone-card__name">Brigadeiro Clássico</p>
+                          <p class="iphone-card__meta">⏱ 20 min · 25 und · Iniciante</p>
+                          <span class="iphone-card__tag">🏠 Família</span>
+                        </div>
+                      </div>
+                      <div class="iphone-card" style="--c:#C8603A">
+                        <div class="iphone-card__color"></div>
+                        <div class="iphone-card__body">
+                          <p class="iphone-card__name">Macarrão ao Alho e Óleo</p>
+                          <p class="iphone-card__meta">⏱ 20 min · 2 porções · Fácil</p>
+                          <span class="iphone-card__tag">⚡ Pra Já</span>
+                        </div>
+                      </div>
+
+                      <!-- Duplicados para loop contínuo -->
+                      <div class="iphone-card" style="--c:#C8603A">
+                        <div class="iphone-card__color"></div>
+                        <div class="iphone-card__body">
+                          <p class="iphone-card__name">Frango Assado de Domingo</p>
+                          <p class="iphone-card__meta">⏱ 80 min · 4 porções · Fácil</p>
+                          <span class="iphone-card__tag">🏠 Família</span>
+                        </div>
+                      </div>
+                      <div class="iphone-card" style="--c:#8FA87A">
+                        <div class="iphone-card__color"></div>
+                        <div class="iphone-card__body">
+                          <p class="iphone-card__name">Bolo de Banana com Aveia</p>
+                          <p class="iphone-card__meta">⏱ 45 min · 8 porções · Iniciante</p>
+                          <span class="iphone-card__tag">🥗 Leve</span>
+                        </div>
+                      </div>
+                      <div class="iphone-card" style="--c:#2A6B6F">
+                        <div class="iphone-card__color"></div>
+                        <div class="iphone-card__body">
+                          <p class="iphone-card__name">Curry de Grão de Bico</p>
+                          <p class="iphone-card__meta">⏱ 35 min · 3 porções · Fácil</p>
+                          <span class="iphone-card__tag">🌍 Pelo Mundo</span>
+                        </div>
+                      </div>
+                      <div class="iphone-card" style="--c:#D4844A">
+                        <div class="iphone-card__color"></div>
+                        <div class="iphone-card__body">
+                          <p class="iphone-card__name">Ovos Mexidos Cremosos</p>
+                          <p class="iphone-card__meta">⏱ 10 min · 1 porção · Iniciante</p>
+                          <span class="iphone-card__tag">⚡ Pra Já</span>
+                        </div>
+                      </div>
+                      <div class="iphone-card" style="--c:#A94E2E">
+                        <div class="iphone-card__color"></div>
+                        <div class="iphone-card__body">
+                          <p class="iphone-card__name">Brigadeiro Clássico</p>
+                          <p class="iphone-card__meta">⏱ 20 min · 25 und · Iniciante</p>
+                          <span class="iphone-card__tag">🏠 Família</span>
+                        </div>
+                      </div>
+                      <div class="iphone-card" style="--c:#C8603A">
+                        <div class="iphone-card__color"></div>
+                        <div class="iphone-card__body">
+                          <p class="iphone-card__name">Macarrão ao Alho e Óleo</p>
+                          <p class="iphone-card__meta">⏱ 20 min · 2 porções · Fácil</p>
+                          <span class="iphone-card__tag">⚡ Pra Já</span>
+                        </div>
+                      </div>
+
+                    </div>
                   </div>
                 </div>
-                <div class="phone-step">
-                  <span class="step-num">02</span>
-                  <p class="step-text">
-                    Adicione alho e cebola picados. Refogue por 2 minutos, mexendo sempre.
-                  </p>
-                </div>
-                <div class="phone-step phone-step--next">
-                  <span class="step-num">03</span>
-                  <p class="step-text">Cubra com água quente e tampe. Fogo baixo por 18 min.</p>
-                </div>
+                <!-- Home indicator -->
+                <div class="iphone-home-bar"></div>
               </div>
             </div>
           </div>
@@ -834,17 +1130,18 @@
 
           <div class="jurema-v2-img">
             <video
+              id="jurema-video"
               class="jurema-v2-video"
               autoplay
               loop
               muted
               playsinline
+              webkit-playsinline
               disablepictureinpicture
               preload="auto"
               aria-label="Jurema, a mascote do Tô Cozinhando, se apresentando"
             >
               <source src="assets/imagens/jurema/jurema-apresentacao.webm" type="video/webm">
-              <!-- Fallback: imagem caso o vídeo não carregue -->
               <img
                 src="assets/imagens/jurema/IMG_6907.PNG"
                 alt="Jurema sentada, segurando uma colher de pau"
@@ -867,7 +1164,8 @@
           <p>Uma receita boa por semana. Sem spam, sem enrolação.<br>
              Direto da Jurema pra você, toda sexta-feira.</p>
           <form class="newsletter-form" id="newsletter-form"
-                aria-label="Inscrição na newsletter" novalidate>
+                aria-label="Inscrição na newsletter" novalidate
+                style="justify-content:center;">
             <label for="newsletter-email" class="sr-only">Seu melhor e-mail</label>
             <input
               class="newsletter-input"
@@ -1032,5 +1330,18 @@
     });
   </script>
 
+
+  <script>
+    /* Força autoplay do vídeo da Jurema */
+    window.addEventListener('DOMContentLoaded', () => {
+      const v = document.getElementById('jurema-video');
+      if (!v) return;
+      v.muted = true;
+      const tryPlay = () => v.play().catch(() => {});
+      tryPlay();
+      document.addEventListener('touchstart', tryPlay, { once: true });
+      document.addEventListener('click',      tryPlay, { once: true });
+    });
+  </script>
 </body>
 </html>
