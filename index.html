@@ -4,13 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tô Cozinhando — Receitas para se orgulhar</title>
-  <meta name="description" content="Receitas brasileiras e do mundo para se orgulhar. Busca inteligente com a Jurema, a mascote que te acompanha na cozinha.">
+  <meta name="description" content="Receitas brasileiras e do mundo para se orgulhar. Busca inteligente com a Jurema.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://tocozinhando.com.br/">
-  <meta property="og:type" content="website">
-  <meta property="og:url"  content="https://tocozinhando.com.br/">
+  <meta property="og:type"  content="website">
+  <meta property="og:url"   content="https://tocozinhando.com.br/">
   <meta property="og:title" content="Tô Cozinhando — Receitas para se orgulhar">
-  <meta property="og:description" content="Busque por ingrediente, prato ou país. A Jurema te ajuda a encontrar uma receita pra se orgulhar.">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🐾</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,25 +17,27 @@
   <link rel="stylesheet" href="assets/css/style.css">
 
   <style>
-    /* ─── RESET BASE ─────────────────────────────────────────── */
+    /* ─────────────────────────────────────────────
+       BASE
+    ───────────────────────────────────────────── */
     body { background: #fff; }
 
-    /* ─── TOKENS ─────────────────────────────────────────────── */
     :root {
-      --section-bg:  #EDEBE4;   /* cinza quente — hero e áreas */
-      --cream-bg:    #FFF8ED;   /* creme — seção Jurema        */
-      --section-r:   28px;      /* border-radius das seções    */
-      --section-mx:  12px;      /* margem lateral das seções   */
+      --bg-gray:   #EDEBE4;
+      --section-r: 28px;
+      --section-mx: 12px;
     }
 
-    /* ─── HEADER ─────────────────────────────────────────────── */
+    /* ─────────────────────────────────────────────
+       HEADER
+    ───────────────────────────────────────────── */
     .header { background: #fff !important; }
 
     .logo-new {
       font-family: var(--font-body);
       font-weight: 800;
-      font-size: 0.95rem;
-      letter-spacing: 0.12em;
+      font-size: .95rem;
+      letter-spacing: .12em;
       text-transform: uppercase;
       color: var(--espresso);
       text-decoration: none;
@@ -45,35 +46,30 @@
     .logo-new em { color: var(--terracota); font-style: normal; }
 
     .btn-acessar {
-      background: var(--terracota);
-      color: #fff;
-      border: none;
-      border-radius: var(--radius-xl);
-      padding: 10px 24px;
-      font-family: var(--font-body);
-      font-size: 0.82rem;
-      font-weight: 700;
-      cursor: pointer;
-      text-decoration: none;
+      background: var(--terracota); color: #fff; border: none;
+      border-radius: var(--radius-xl); padding: 10px 24px;
+      font-family: var(--font-body); font-size: .82rem; font-weight: 700;
+      cursor: pointer; text-decoration: none; white-space: nowrap; flex-shrink: 0;
       transition: background .15s, transform .15s;
-      white-space: nowrap;
-      flex-shrink: 0;
     }
     .btn-acessar:hover { background: var(--terracota-dark); transform: translateY(-1px); }
 
-    /* ─── HERO ───────────────────────────────────────────────── */
-    .hero-v2 {
-      background: var(--section-bg);
-      border-radius: 0 0 var(--section-r) var(--section-r);
+    /* ─────────────────────────────────────────────
+       BLOCO CINZA ÚNICO (hero + áreas)
+    ───────────────────────────────────────────── */
+    .gray-block {
+      background: var(--bg-gray);
       margin: 0 var(--section-mx);
-      padding-top: calc(var(--header-h) + 2rem);
-      padding-bottom: 0;
+      border-radius: 0 0 var(--section-r) var(--section-r);
+      overflow: hidden;         /* recorta bordas internas */
+    }
+
+    /* ─── HERO ──────────────────────────────── */
+    .hero-v2 {
+      padding-top: calc(var(--header-h) + 2.5rem);
       display: flex;
       flex-direction: column;
       align-items: center;
-      overflow: visible;          /* Jurema pode sair pelos lados */
-      position: relative;
-      z-index: 0;
     }
 
     .hero-v2__inner {
@@ -86,112 +82,65 @@
       text-align: center;
     }
 
-    /* Eyebrow */
     .hero-v2__eyebrow {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-family: var(--font-body);
-      font-size: 0.66rem;
-      font-weight: 800;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--terracota);
-      margin-bottom: 1.1rem;
+      display: flex; align-items: center; gap: .6rem;
+      font-family: var(--font-body); font-size: .66rem;
+      font-weight: 800; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--terracota); margin-bottom: 1rem;
     }
     .hero-v2__eyebrow::before,
     .hero-v2__eyebrow::after {
-      content: '';
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: var(--terracota);
-      border-radius: 1px;
+      content: ''; display: block; width: 24px; height: 2px;
+      background: var(--terracota); border-radius: 1px;
     }
 
-    /* Título */
     .hero-v2__title {
       font-family: var(--font-display);
       font-size: clamp(2.8rem, 8vw, 6rem);
-      font-weight: 800;
-      color: var(--espresso);
-      line-height: 1.05;
-      letter-spacing: -0.03em;
-      margin-bottom: 0;
+      font-weight: 800; color: var(--espresso);
+      line-height: 1.05; letter-spacing: -.03em; margin-bottom: 0;
     }
     .hero-v2__title em { color: var(--terracota); font-style: normal; }
 
-    /* Jurema — senta em cima do card de busca */
+    /* Jurema sobe sobre o card */
     .hero-v2__jurema {
       margin-top: 1.5rem;
-      position: relative;
-      z-index: 2;
-      display: flex;
-      justify-content: center;
-      margin-bottom: -3rem;     /* puxa para baixo, sobrepondo o card */
+      position: relative; z-index: 2;
+      display: flex; justify-content: center;
+      margin-bottom: -3.5rem;
     }
 
     #jurema-img {
-      width: clamp(240px, 38vw, 430px);
-      height: auto;
-      display: none;
-      object-fit: contain;
-      background: transparent;
-      filter: drop-shadow(0 8px 24px rgba(47,36,29,0.14));
+      width: clamp(240px, 38vw, 440px);
+      height: auto; display: none;
+      object-fit: contain; background: transparent;
+      filter: drop-shadow(0 8px 20px rgba(47,36,29,.12));
     }
 
     #jurema-fallback {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      gap: .5rem;
+      display: none; flex-direction: column;
+      align-items: center; gap: .5rem;
       width: clamp(200px, 30vw, 320px);
     }
 
-    /* Balão de fala */
-    .jurema-bubble-v2 {
-      display: none;
-      background: #fff;
-      border: 1.5px solid var(--sand);
-      border-radius: 14px;
-      padding: 9px 14px;
-      max-width: 185px;
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: 0.76rem;
-      color: var(--taupe);
-      line-height: 1.45;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-      text-align: center;
-      margin-top: 0.5rem;
-    }
-
-    /* ─── CARD DE BUSCA ──────────────────────────────────────── */
+    /* Card de busca */
     .hero-v2__search-card {
-      width: calc(100% - 3rem);
-      max-width: 580px;
-      background: #fff;
-      border-radius: 22px;       /* totalmente arredondado */
-      padding: 2.75rem 1.75rem 1.75rem;
-      position: relative;
-      z-index: 1;
-      box-shadow: 0 8px 40px rgba(47,36,29,0.09),
-                  0 2px 12px rgba(47,36,29,0.05);
+      width: calc(100% - 2rem); max-width: 580px;
+      background: #fff; border-radius: 22px;
+      padding: 3rem 1.75rem 1.75rem;
+      position: relative; z-index: 1;
+      box-shadow: 0 8px 40px rgba(47,36,29,.09), 0 2px 10px rgba(47,36,29,.04);
     }
 
-    /* Formulário de busca — borda terracota visível */
     .hero-v2__search-form {
-      display: flex;
-      align-items: center;
+      display: flex; align-items: center;
       border: 1.5px solid var(--terracota);
       border-radius: var(--radius-xl);
-      padding: 5px 5px 5px 18px;
-      gap: 8px;
-      background: #fff;
-      transition: box-shadow .2s;
+      padding: 5px 5px 5px 18px; gap: 8px;
+      background: #fff; transition: box-shadow .2s;
     }
     .hero-v2__search-form:focus-within {
-      box-shadow: 0 0 0 3px rgba(200,96,58,0.12);
+      box-shadow: 0 0 0 3px rgba(200,96,58,.12);
     }
 
     .hero-v2__search-input {
@@ -201,8 +150,7 @@
     .hero-v2__search-input::placeholder { color: var(--taupe-light); }
 
     .hero-v2__search-btn {
-      width: 42px; height: 42px;
-      border-radius: 50%;
+      width: 44px; height: 44px; border-radius: 50%;
       background: var(--terracota); border: none;
       display: flex; align-items: center; justify-content: center;
       cursor: pointer; flex-shrink: 0;
@@ -214,74 +162,97 @@
       stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
     }
 
-    /* Quick tags dentro do card */
     .hero-v2__quick-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 1rem;
-      justify-content: center;
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-top: 1rem; justify-content: center;
     }
 
-    /* ─── SEÇÕES COMO CARTÕES ────────────────────────────────── */
-    .section-card {
-      border-radius: var(--section-r);
-      margin: 8px var(--section-mx) 0;
-      overflow: hidden;
-    }
-
-    /* ─── ÁREAS — 4 cards terracota ──────────────────────────── */
+    /* ─── ÁREAS (continua o gray-block) ─────── */
     .section-areas {
-      background: var(--section-bg);
-      padding: var(--space-16) 0 var(--space-20);
+      padding: var(--space-12) 0 var(--space-16);
     }
 
-    .areas-v2-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
+    /* Cabeçalho da seção */
+    .areas-head { padding: 0 var(--space-6); margin-bottom: var(--space-8); }
+
+    /* ── CARROSSEL ─────────────────────────── */
+    .areas-carousel-wrap {
+      overflow: hidden;
+      cursor: grab;
+      padding-bottom: var(--space-4);
+    }
+    .areas-carousel-wrap:active { cursor: grabbing; }
+
+    /* Pausa ao passar o mouse na área toda */
+    .areas-carousel-wrap:hover .areas-carousel-track {
+      animation-play-state: paused;
+    }
+
+    .areas-carousel-track {
+      display: flex;
       gap: 14px;
-      margin-top: var(--space-10);
+      width: max-content;
+      padding: 0 var(--space-6);
+      animation: slide-areas 32s linear infinite;
+      will-change: transform;
+    }
+
+    @keyframes slide-areas {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
 
     .area-card-v2 {
+      width: clamp(220px, 24vw, 290px);
+      aspect-ratio: 3/4;
       background: var(--terracota);
       border-radius: 18px;
-      aspect-ratio: 4/3;
-      display: flex;
-      align-items: flex-end;
+      display: flex; align-items: flex-end;
       padding: 1.25rem 1.4rem;
       text-decoration: none;
-      transition: transform .22s, box-shadow .22s, filter .22s;
-      overflow: hidden;
-      position: relative;
+      flex-shrink: 0;
+      overflow: hidden; position: relative;
+      transition: transform .3s ease, box-shadow .3s ease, filter .3s ease;
     }
     .area-card-v2::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(47,36,29,.4) 0%, transparent 55%);
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(47,36,29,.45) 0%, transparent 55%);
     }
     .area-card-v2:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 16px 40px rgba(200,96,58,0.25);
-      filter: brightness(1.05);
+      transform: scale(1.06);
+      box-shadow: 0 20px 50px rgba(200,96,58,.3);
+      filter: brightness(1.06);
+      z-index: 2;
     }
 
     .area-card-v2__name {
       position: relative;
       font-family: var(--font-display);
-      font-size: clamp(1.2rem, 2.2vw, 1.6rem);
-      font-weight: 800;
-      color: #fff;
-      letter-spacing: -0.01em;
-      line-height: 1.2;
+      font-size: clamp(1.1rem, 2vw, 1.5rem);
+      font-weight: 800; color: #fff; line-height: 1.2;
     }
 
-    /* ─── MODO COZINHA ───────────────────────────────────────── */
-    /* usa .section-modo existente do style.css */
+    /* ─────────────────────────────────────────────
+       MODO COZINHA — usa section-modo existente
+    ───────────────────────────────────────────── */
+    .section-modo-wrap {
+      margin: 8px var(--section-mx) 0;
+      border-radius: var(--section-r);
+      overflow: hidden;
+    }
 
-    /* ─── JUREMA "CONHEÇA" ───────────────────────────────────── */
+    /* ─────────────────────────────────────────────
+       RECEITAS EM DESTAQUE
+    ───────────────────────────────────────────── */
+    /* usa .section existente */
+
+    /* ─────────────────────────────────────────────
+       CONHEÇA A JUREMA — fundo cinza (não creme)
+    ───────────────────────────────────────────── */
     .section-jurema-v2 {
-      background: var(--cream-bg);
+      background: var(--bg-gray);
+      margin: 8px var(--section-mx) 0;
+      border-radius: var(--section-r);
       padding: var(--space-16) 0 0;
       overflow: hidden;
     }
@@ -289,179 +260,111 @@
     .jurema-v2-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: var(--space-10);
+      gap: var(--space-8);
       align-items: flex-end;
     }
 
     .jurema-v2-content {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-5);
-      padding-bottom: var(--space-16);
+      display: flex; flex-direction: column; gap: var(--space-5);
+      padding-bottom: var(--space-12);
     }
 
     .jurema-v2-title {
       font-family: var(--font-display);
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 800;
-      color: var(--espresso);
-      letter-spacing: -0.02em;
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-weight: 800; color: var(--espresso); letter-spacing: -.02em;
     }
 
-    /* Imagem da Jurema — grande, alinhada na base */
     .jurema-v2-img {
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
+      display: flex; justify-content: center; align-items: flex-end;
     }
 
     .jurema-v2-img img {
-      width: clamp(280px, 45vw, 480px);  /* maior */
-      height: auto;
-      object-fit: contain;
-      display: block;
-      filter: drop-shadow(0 -2px 16px rgba(47,36,29,0.06));
+      /* MAIOR — quase enche a coluna */
+      width: clamp(300px, 52vw, 560px);
+      height: auto; object-fit: contain; display: block;
+      filter: drop-shadow(0 -2px 18px rgba(47,36,29,.07));
     }
 
-    .jurema-v2-img-placeholder {
-      width: 300px; height: 340px;
-      background: var(--espresso); border-radius: 50% 50% 40% 40%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 5rem;
-    }
-
-    /* Botão outline "Saber mais" */
     .btn-outline-dark {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border: 2px solid var(--espresso);
-      border-radius: var(--radius-xl);
+      display: inline-flex; align-items: center; justify-content: center;
+      border: 2px solid var(--espresso); border-radius: var(--radius-xl);
       padding: 13px 28px;
-      font-family: var(--font-body);
-      font-size: .88rem;
-      font-weight: 700;
-      color: var(--espresso);
-      background: transparent;
-      text-decoration: none;
-      transition: background .15s, color .15s;
-      width: 100%;
-      max-width: 380px;
+      font-family: var(--font-body); font-size: .88rem; font-weight: 700;
+      color: var(--espresso); background: transparent;
+      text-decoration: none; transition: background .15s, color .15s;
+      width: 100%; max-width: 380px;
     }
     .btn-outline-dark:hover { background: var(--espresso); color: #fff; }
 
-    /* ─── NEWSLETTER ─────────────────────────────────────────── */
-    /* usa .section-newsletter existente */
-
-    /* ─── FOOTER V2 ──────────────────────────────────────────── */
+    /* ─────────────────────────────────────────────
+       FOOTER V2
+    ───────────────────────────────────────────── */
     .footer-v2 {
       background: var(--espresso);
       padding: var(--space-16) 0 var(--space-8);
       margin: 8px var(--section-mx) 0;
       border-radius: var(--section-r) var(--section-r) 0 0;
     }
-
     .footer-v2__grid {
-      display: grid;
-      grid-template-columns: 1fr;
+      display: grid; grid-template-columns: 1fr;
       gap: var(--space-10);
       padding-bottom: var(--space-10);
       border-bottom: 1px solid rgba(255,255,255,.1);
       margin-bottom: var(--space-6);
     }
-
     .footer-v2__brand-logo {
-      font-family: var(--font-body);
-      font-size: .88rem;
-      font-weight: 800;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: #fff;
+      font-family: var(--font-body); font-size: .88rem; font-weight: 800;
+      letter-spacing: .12em; text-transform: uppercase; color: #fff;
     }
     .footer-v2__brand-logo em { color: var(--terracota); font-style: normal; }
-
-    .footer-v2__copy {
-      font-size: var(--text-xs);
-      color: rgba(255,255,255,.35);
-      font-weight: 600;
-      margin-top: .4rem;
-    }
-
-    .footer-v2__social {
-      display: flex;
-      gap: .5rem;
-      margin-top: 1.25rem;
-      flex-wrap: wrap;
-    }
-
+    .footer-v2__copy { font-size: var(--text-xs); color: rgba(255,255,255,.32); font-weight: 600; margin-top: .4rem; }
+    .footer-v2__social { display: flex; gap: .5rem; margin-top: 1.25rem; flex-wrap: wrap; }
     .footer-v2__social-link {
-      width: 36px; height: 36px;
-      border-radius: 50%;
+      width: 36px; height: 36px; border-radius: 50%;
       background: rgba(255,255,255,.1);
       display: flex; align-items: center; justify-content: center;
-      color: rgba(255,255,255,.65);
-      text-decoration: none;
+      color: rgba(255,255,255,.6); text-decoration: none;
       transition: background .15s, color .15s;
     }
     .footer-v2__social-link:hover { background: var(--terracota); color: #fff; }
     .footer-v2__social-link svg { width: 16px; height: 16px; fill: currentColor; }
-
     .footer-v2__col-title {
-      font-size: var(--text-xs);
-      font-weight: 800;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.3);
-      margin-bottom: var(--space-4);
+      font-size: var(--text-xs); font-weight: 800;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(255,255,255,.28); margin-bottom: var(--space-4);
     }
-
     .footer-v2__link {
-      display: block;
-      font-size: var(--text-sm);
-      font-weight: 600;
-      color: rgba(255,255,255,.6);
-      text-decoration: none;
-      margin-bottom: var(--space-2);
-      transition: color .15s;
+      display: block; font-size: var(--text-sm); font-weight: 600;
+      color: rgba(255,255,255,.58); text-decoration: none;
+      margin-bottom: var(--space-2); transition: color .15s;
     }
     .footer-v2__link:hover { color: #fff; }
-
     .footer-v2__bottom {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: var(--space-3);
+      display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap; gap: var(--space-3);
+    }
+    .footer-v2__legal { font-size: var(--text-xs); color: rgba(255,255,255,.22); font-weight: 600; }
+    .footer-v2__paw   { font-size: var(--text-xs); color: rgba(255,255,255,.18); font-weight: 600; }
+
+    /* ─────────────────────────────────────────────
+       CARDS DE RECEITA — placeholder sem imagem
+    ───────────────────────────────────────────── */
+    .card-recipe__img-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem; background: var(--sand);
     }
 
-    .footer-v2__legal { font-size: var(--text-xs); color: rgba(255,255,255,.25); font-weight: 600; }
-    .footer-v2__paw   { font-size: var(--text-xs); color: rgba(255,255,255,.2);  font-weight: 600; }
-
-    /* ─── RESPONSIVO ─────────────────────────────────────────── */
-    @media (min-width: 600px) {
-      .areas-v2-grid { grid-template-columns: repeat(4, 1fr); }
-      .area-card-v2  { aspect-ratio: 3/4; }
-    }
-
+    /* ─────────────────────────────────────────────
+       RESPONSIVO
+    ───────────────────────────────────────────── */
     @media (min-width: 768px) {
       :root { --section-mx: 20px; }
-
-      .footer-v2__grid {
-        grid-template-columns: 2fr 1fr 1fr 1fr;
-        gap: var(--space-12);
-      }
-
-      .jurema-v2-grid {
-        grid-template-columns: 1fr auto;
-        gap: var(--space-10);
-        align-items: flex-end;
-      }
-
-      .jurema-v2-img {
-        justify-content: flex-end;
-      }
+      .footer-v2__grid { grid-template-columns: 2fr 1fr 1fr 1fr; gap: var(--space-10); }
+      .jurema-v2-grid { grid-template-columns: 1fr auto; gap: var(--space-10); align-items: flex-end; }
+      .jurema-v2-img  { justify-content: flex-end; }
     }
-
     @media (min-width: 1024px) {
       :root { --section-mx: 28px; }
       .footer-v2__grid { grid-template-columns: 2fr 1fr 1fr 1fr 1fr; }
@@ -470,26 +373,20 @@
 </head>
 <body>
 
-  <!-- ════════════════════════════════════════
-       HEADER
-  ════════════════════════════════════════ -->
+  <!-- HEADER -->
   <header class="header" id="header" role="banner">
     <div class="container header__inner">
-
       <a href="index.html" class="logo-new" aria-label="Tô Cozinhando — página inicial">
         <em>Tô</em> Cozinhando
       </a>
-
       <nav class="nav" id="nav" aria-label="Navegação principal">
-        <a href="receitas.html"                  class="nav__link">Receitas</a>
-        <a href="receitas.html?area=pra-ja"      class="nav__link">Pra já</a>
-        <a href="receitas.html?area=pelo-mundo"  class="nav__link">Pelo Mundo</a>
-        <a href="receitas.html?area=mini-chef"   class="nav__link">Mini Chef</a>
-        <a href="sobre.html"                     class="nav__link">Sobre</a>
+        <a href="receitas.html"                 class="nav__link">Receitas</a>
+        <a href="receitas.html?area=pra-ja"     class="nav__link">Pra já</a>
+        <a href="receitas.html?area=pelo-mundo" class="nav__link">Pelo Mundo</a>
+        <a href="receitas.html?area=mini-chef"  class="nav__link">Mini Chef</a>
+        <a href="sobre.html"                    class="nav__link">Sobre</a>
       </nav>
-
       <a href="#" class="btn-acessar">Acessar</a>
-
       <button class="nav-toggle" id="nav-toggle"
               aria-label="Abrir menu" aria-expanded="false"
               aria-controls="nav-mobile" type="button">
@@ -510,82 +407,113 @@
 
   <main id="main">
 
-    <!-- ════════════════════════════════════════
-         1. HERO — cinza arredondado (cartão)
-    ════════════════════════════════════════ -->
-    <section class="hero-v2" id="hero" aria-labelledby="hero-title">
-      <div class="hero-v2__inner">
+    <!-- ══════════════════════════════════════════════
+         BLOCO CINZA: hero + áreas (sem separação)
+    ══════════════════════════════════════════════ -->
+    <div class="gray-block">
 
-        <span class="hero-v2__eyebrow" aria-hidden="true">Receitas para se orgulhar</span>
+      <!-- 1. HERO -->
+      <section class="hero-v2" id="hero" aria-labelledby="hero-title">
+        <div class="hero-v2__inner">
 
-        <h1 class="hero-v2__title" id="hero-title">
-          O que vai sair da<br>
-          sua cozinha <em>hoje?</em>
-        </h1>
+          <span class="hero-v2__eyebrow" aria-hidden="true">Receitas para se orgulhar</span>
 
-        <!-- Jurema senta em cima do card -->
-        <div class="hero-v2__jurema" id="jurema-wrapper">
-          <div style="position:relative; display:inline-flex; flex-direction:column; align-items:center;">
+          <h1 class="hero-v2__title" id="hero-title">
+            O que vai sair da<br>sua cozinha <em>hoje?</em>
+          </h1>
 
-            <img
-              id="jurema-img"
-              src="assets/imagens/jurema/IMG_6910.PNG"
-              alt="Jurema, a salsichinha mascote do Tô Cozinhando"
-            >
-
-            <div id="jurema-fallback">
-              <div class="jurema-fallback__silhouette">
-                <div class="jurema-fallback__bandana"></div>
+          <!-- Jurema -->
+          <div class="hero-v2__jurema" id="jurema-wrapper">
+            <div>
+              <img
+                id="jurema-img"
+                src="assets/imagens/jurema/IMG_6910.PNG"
+                alt="Jurema, a salsichinha mascote do Tô Cozinhando"
+              >
+              <div id="jurema-fallback">
+                <div class="jurema-fallback__silhouette">
+                  <div class="jurema-fallback__bandana"></div>
+                </div>
               </div>
             </div>
+          </div>
+
+          <!-- Card de busca -->
+          <div class="hero-v2__search-card">
+            <form class="hero-v2__search-form" id="search-form"
+                  role="search" autocomplete="off" aria-label="Buscar receitas">
+              <label for="search-input" class="sr-only">Buscar receitas</label>
+              <input type="search" id="search-input" class="hero-v2__search-input"
+                     name="q" placeholder="frango rápido, bolo sem leite, comida mexicana…"
+                     autocomplete="off" autocorrect="off" spellcheck="false" maxlength="100">
+              <button type="submit" class="hero-v2__search-btn" aria-label="Buscar">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="11" cy="11" r="8"/>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+              </button>
+            </form>
+            <div class="hero-v2__quick-tags" id="quick-tags"
+                 role="group" aria-label="Buscar por categoria">
+              <button class="quick-tag" data-q="15 minutos"  type="button">⚡ 15 min</button>
+              <button class="quick-tag" data-q="vegetariana" type="button">🥗 Vegetariana</button>
+              <button class="quick-tag" data-q="frango"      type="button">🍗 Frango</button>
+              <button class="quick-tag" data-q="sobremesa"   type="button">🍮 Sobremesas</button>
+              <button class="quick-tag" data-q="mexicana"    type="button">🌮 México</button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 2. ÁREAS — carrossel auto-slide -->
+      <section class="section-areas" id="areas" aria-labelledby="areas-title">
+
+        <div class="areas-head container reveal">
+          <span class="label">Explore o ecossistema</span>
+          <h2 id="areas-title">Pra cada dia,<br>uma área diferente</h2>
+        </div>
+
+        <!-- Carrossel: 6 cards + 6 duplicados = loop infinito -->
+        <div class="areas-carousel-wrap" id="areas-carousel" aria-label="Áreas de receitas">
+          <div class="areas-carousel-track" id="areas-track">
+
+            <!-- Original -->
+            <a href="receitas.html?area=pra-ja"     class="area-card-v2">
+              <span class="area-card-v2__name">Pra Já</span></a>
+            <a href="receitas.html?area=leve"       class="area-card-v2">
+              <span class="area-card-v2__name">Leve de Verdade</span></a>
+            <a href="receitas.html?area=mini-chef"  class="area-card-v2">
+              <span class="area-card-v2__name">Mini Chef</span></a>
+            <a href="receitas.html?area=pelo-mundo" class="area-card-v2">
+              <span class="area-card-v2__name">Pelo Mundo</span></a>
+            <a href="receitas.html?area=familia"    class="area-card-v2">
+              <span class="area-card-v2__name">Receitas de Família</span></a>
+            <a href="receitas.html"                 class="area-card-v2" style="background:var(--terracota-dark)">
+              <span class="area-card-v2__name">Todas as Receitas</span></a>
+
+            <!-- Duplicados para loop infinito -->
+            <a href="receitas.html?area=pra-ja"     class="area-card-v2" aria-hidden="true">
+              <span class="area-card-v2__name">Pra Já</span></a>
+            <a href="receitas.html?area=leve"       class="area-card-v2" aria-hidden="true">
+              <span class="area-card-v2__name">Leve de Verdade</span></a>
+            <a href="receitas.html?area=mini-chef"  class="area-card-v2" aria-hidden="true">
+              <span class="area-card-v2__name">Mini Chef</span></a>
+            <a href="receitas.html?area=pelo-mundo" class="area-card-v2" aria-hidden="true">
+              <span class="area-card-v2__name">Pelo Mundo</span></a>
+            <a href="receitas.html?area=familia"    class="area-card-v2" aria-hidden="true">
+              <span class="area-card-v2__name">Receitas de Família</span></a>
+            <a href="receitas.html"                 class="area-card-v2" aria-hidden="true" style="background:var(--terracota-dark)">
+              <span class="area-card-v2__name">Todas as Receitas</span></a>
 
           </div>
         </div>
 
-        <!-- Card de busca — totalmente arredondado -->
-        <div class="hero-v2__search-card">
-          <form class="hero-v2__search-form" id="search-form"
-                role="search" autocomplete="off" aria-label="Buscar receitas">
-            <label for="search-input" class="sr-only">Buscar receitas</label>
-            <input
-              type="search"
-              id="search-input"
-              class="hero-v2__search-input"
-              name="q"
-              placeholder="frango rápido, bolo sem leite, comida mexicana…"
-              autocomplete="off"
-              autocorrect="off"
-              spellcheck="false"
-              maxlength="100"
-            >
-            <button type="submit" class="hero-v2__search-btn" aria-label="Buscar">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <circle cx="11" cy="11" r="8"/>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-              </svg>
-            </button>
-          </form>
+      </section>
 
-          <!-- Balão de fala — dentro do card, abaixo da busca -->
-          <div class="jurema-bubble-v2" id="jurema-speech-bubble"
-               role="status" aria-live="polite" style="display:none; margin:0.75rem auto 0; max-width:none; background: transparent; border: none; box-shadow: none; font-size:0.8rem; color: var(--taupe); font-style: italic;">
-            <p id="jurema-speech-text">Me conta o que tem aí. Eu farejo uma boa ideia.</p>
-          </div>
+    </div><!-- END gray-block -->
 
-          <div class="hero-v2__quick-tags" id="quick-tags"
-               role="group" aria-label="Buscar por categoria">
-            <button class="quick-tag" data-q="15 minutos"  type="button">⚡ 15 min</button>
-            <button class="quick-tag" data-q="vegetariana" type="button">🥗 Vegetariana</button>
-            <button class="quick-tag" data-q="frango"      type="button">🍗 Frango</button>
-            <button class="quick-tag" data-q="sobremesa"   type="button">🍮 Sobremesas</button>
-            <button class="quick-tag" data-q="mexicana"    type="button">🌮 México</button>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Resultados -->
+    <!-- Resultados da busca (oculto) -->
     <section class="results-section" id="results-section"
              aria-label="Resultados da busca" aria-live="polite" hidden>
       <div class="container">
@@ -603,82 +531,49 @@
       </div>
     </section>
 
-    <!-- ════════════════════════════════════════
-         2. ÁREAS — cinza, 4 cards terracota
-    ════════════════════════════════════════ -->
-    <section class="section-card section-areas" id="areas" aria-labelledby="areas-title">
-      <div class="container">
-
-        <div class="section-head reveal">
-          <span class="label">Explore o ecossistema</span>
-          <h2 id="areas-title">Pra cada dia,<br>uma área diferente</h2>
-        </div>
-
-        <div class="areas-v2-grid reveal" data-delay="100"
-             role="list" aria-label="Áreas de receitas">
-
-          <a href="receitas.html?area=pra-ja"     class="area-card-v2" aria-label="Pra Já">
-            <span class="area-card-v2__name">Pra Já</span>
-          </a>
-          <a href="receitas.html?area=leve"       class="area-card-v2" aria-label="Leve de Verdade">
-            <span class="area-card-v2__name">Leve de<br>Verdade</span>
-          </a>
-          <a href="receitas.html?area=mini-chef"  class="area-card-v2" aria-label="Mini Chef">
-            <span class="area-card-v2__name">Mini Chef</span>
-          </a>
-          <a href="receitas.html?area=pelo-mundo" class="area-card-v2" aria-label="Pelo Mundo">
-            <span class="area-card-v2__name">Pelo Mundo</span>
-          </a>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ════════════════════════════════════════
-         3. MODO COZINHA — escuro
-    ════════════════════════════════════════ -->
-    <section class="section-card section section-modo" id="modo-cozinha" aria-labelledby="modo-title">
-      <div class="container">
-        <div class="modo-inner reveal">
-          <div class="modo-content">
-            <span class="label label--light">Modo Cozinha</span>
-            <h2 class="modo-title" id="modo-title">Cozinhe com o<br>celular do seu lado.</h2>
-            <p class="modo-sub">Passo a passo grande, tela que não apaga, vire o celular
-               e a receita acompanha. Feito pra funcionar com as mãos ocupadas de farinha.</p>
-            <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:.5rem;">
-              <a href="#" class="btn btn-light">Experimentar o modo</a>
-              <a href="sobre.html" class="btn"
-                 style="color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.2);background:transparent">
-                Saber mais
-              </a>
+    <!-- 3. MODO COZINHA -->
+    <div class="section-modo-wrap">
+      <section class="section section-modo" id="modo-cozinha" aria-labelledby="modo-title">
+        <div class="container">
+          <div class="modo-inner reveal">
+            <div class="modo-content">
+              <span class="label label--light">Modo Cozinha</span>
+              <h2 class="modo-title" id="modo-title">Cozinhe com o<br>celular do seu lado.</h2>
+              <p class="modo-sub">Passo a passo grande, tela que não apaga, vire o celular
+                e a receita acompanha. Feito pra funcionar com as mãos ocupadas de farinha.</p>
+              <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:.5rem;">
+                <a href="#" class="btn btn-light">Experimentar o modo</a>
+                <a href="sobre.html" class="btn"
+                   style="color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.2);background:transparent">
+                  Saber mais
+                </a>
+              </div>
             </div>
-          </div>
-          <div class="modo-visual" aria-hidden="true">
-            <div class="phone-mock" role="presentation">
-              <div class="phone-mock__bar">
-                <span class="phone-mock__label">Frango Assado de Domingo</span>
-                <div class="phone-mock__progress">
-                  <span class="active"></span><span class="active"></span>
-                  <span></span><span></span>
+            <div class="modo-visual" aria-hidden="true">
+              <div class="phone-mock" role="presentation">
+                <div class="phone-mock__bar">
+                  <span class="phone-mock__label">Frango Assado de Domingo</span>
+                  <div class="phone-mock__progress">
+                    <span class="active"></span><span class="active"></span>
+                    <span></span><span></span>
+                  </div>
+                </div>
+                <div class="phone-step">
+                  <span class="step-num">02</span>
+                  <p class="step-text">Adicione alho e cebola picados e refogue por mais 2 minutos, mexendo sempre.</p>
+                </div>
+                <div class="phone-step phone-step--next">
+                  <span class="step-num">03</span>
+                  <p class="step-text">Cubra com água quente e tampe. Fogo baixo por 18 min.</p>
                 </div>
               </div>
-              <div class="phone-step">
-                <span class="step-num">02</span>
-                <p class="step-text">Adicione alho e cebola picados e refogue por mais 2 minutos, mexendo sempre.</p>
-              </div>
-              <div class="phone-step phone-step--next">
-                <span class="step-num">03</span>
-                <p class="step-text">Cubra com água quente e tampe. Fogo baixo por 18 min.</p>
-              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
 
-    <!-- ════════════════════════════════════════
-         4. RECEITAS EM DESTAQUE
-    ════════════════════════════════════════ -->
+    <!-- 4. RECEITAS EM DESTAQUE -->
     <section class="section" id="featured" aria-labelledby="featured-title">
       <div class="container">
         <div class="section-head section-head--row reveal">
@@ -688,20 +583,22 @@
           </div>
           <a href="receitas.html" class="btn-ghost">Ver todas →</a>
         </div>
-        <div class="recipes-grid reveal" id="featured-grid"
-             data-delay="100" role="list"></div>
+        <!-- Skeletons enquanto JS carrega -->
+        <div class="recipes-grid reveal" id="featured-grid" data-delay="100" role="list">
+          <div class="recipe-skeleton"></div>
+          <div class="recipe-skeleton"></div>
+          <div class="recipe-skeleton"></div>
+          <div class="recipe-skeleton"></div>
+        </div>
       </div>
     </section>
 
-    <!-- ════════════════════════════════════════
-         5. CONHEÇA A JUREMA — creme
-    ════════════════════════════════════════ -->
-    <section class="section-card section-jurema-v2" id="sobre-jurema"
-             aria-labelledby="jurema-intro-title">
+    <!-- 5. CONHEÇA A JUREMA -->
+    <section class="section-jurema-v2" id="sobre-jurema" aria-labelledby="jurema-intro-title">
       <div class="container">
         <div class="jurema-v2-grid reveal">
 
-          <!-- Texto esquerda -->
+          <!-- Texto -->
           <div class="jurema-v2-content">
             <span class="label">Nossa mascote</span>
             <h2 class="jurema-v2-title" id="jurema-intro-title">Conheça a Jurema.</h2>
@@ -721,24 +618,19 @@
             <a href="sobre.html" class="btn-outline-dark">Saber mais sobre ela</a>
           </div>
 
-          <!-- Jurema direita — grande, alinhada na base -->
+          <!-- Jurema grande à direita -->
           <div class="jurema-v2-img">
-            <img
-              src="assets/imagens/jurema/IMG_6907.PNG"
-              alt="Jurema com uma colher de pau, pronta para cozinhar"
-              width="460" height="520"
-              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"
-            >
-            <div class="jurema-v2-img-placeholder" style="display:none;" aria-hidden="true">🍳</div>
+            <img src="assets/imagens/jurema/IMG_6907.PNG"
+                 alt="Jurema com uma colher de pau, pronta para cozinhar"
+                 width="520" height="580"
+                 onerror="this.style.display='none'">
           </div>
 
         </div>
       </div>
     </section>
 
-    <!-- ════════════════════════════════════════
-         6. NEWSLETTER
-    ════════════════════════════════════════ -->
+    <!-- 6. NEWSLETTER -->
     <section class="section section-newsletter" id="newsletter" aria-labelledby="newsletter-title">
       <div class="container">
         <div class="newsletter-inner reveal">
@@ -751,52 +643,41 @@
                    name="email" placeholder="seu@email.com" required autocomplete="email">
             <button type="submit" class="btn btn-primary">Quero receber</button>
           </form>
-          <p class="newsletter-disclaimer">Sem spam. Jurema promete. Cancele quando quiser. 🐾</p>
+          <p class="newsletter-disclaimer">Sem spam. Jurema promete. 🐾</p>
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- ════════════════════════════════════════
-       FOOTER V2
-  ════════════════════════════════════════ -->
+  <!-- FOOTER -->
   <footer class="footer-v2" role="contentinfo">
     <div class="container">
       <div class="footer-v2__grid">
-
-        <!-- Marca + social -->
         <div>
           <p class="footer-v2__brand-logo"><em>Tô</em> Cozinhando</p>
           <p class="footer-v2__copy">© Tô Cozinhando, 2025. Receitas para se orgulhar.</p>
           <div class="footer-v2__social">
-            <!-- Instagram -->
             <a href="#" class="footer-v2__social-link" aria-label="Instagram">
               <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
             </a>
-            <!-- YouTube -->
             <a href="#" class="footer-v2__social-link" aria-label="YouTube">
               <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
             </a>
-            <!-- TikTok -->
             <a href="#" class="footer-v2__social-link" aria-label="TikTok">
               <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
             </a>
           </div>
         </div>
-
-        <!-- Receitas -->
         <nav aria-label="Receitas">
           <p class="footer-v2__col-title">Receitas</p>
-          <a href="receitas.html"                  class="footer-v2__link">Todas as receitas</a>
-          <a href="receitas.html?area=pra-ja"      class="footer-v2__link">Pra Já</a>
-          <a href="receitas.html?area=mini-chef"   class="footer-v2__link">Mini Chef</a>
-          <a href="receitas.html?area=leve"        class="footer-v2__link">Leve de Verdade</a>
-          <a href="receitas.html?area=pelo-mundo"  class="footer-v2__link">Pelo Mundo</a>
-          <a href="receitas.html?area=familia"     class="footer-v2__link">Receitas de Família</a>
+          <a href="receitas.html"                 class="footer-v2__link">Todas as receitas</a>
+          <a href="receitas.html?area=pra-ja"     class="footer-v2__link">Pra Já</a>
+          <a href="receitas.html?area=mini-chef"  class="footer-v2__link">Mini Chef</a>
+          <a href="receitas.html?area=leve"       class="footer-v2__link">Leve de Verdade</a>
+          <a href="receitas.html?area=pelo-mundo" class="footer-v2__link">Pelo Mundo</a>
+          <a href="receitas.html?area=familia"    class="footer-v2__link">Receitas de Família</a>
         </nav>
-
-        <!-- Sobre -->
         <nav aria-label="Sobre">
           <p class="footer-v2__col-title">Sobre</p>
           <a href="sobre.html"       class="footer-v2__link">A marca</a>
@@ -804,24 +685,18 @@
           <a href="sobre.html#marca" class="footer-v2__link">Nossa missão</a>
           <a href="#newsletter"      class="footer-v2__link">Newsletter</a>
         </nav>
-
-        <!-- Contato -->
         <nav aria-label="Contato">
           <p class="footer-v2__col-title">Contato</p>
           <a href="mailto:tocozinhandoreceitas@gmail.com" class="footer-v2__link">E-mail</a>
           <a href="#" class="footer-v2__link">Instagram</a>
           <a href="#" class="footer-v2__link">YouTube</a>
         </nav>
-
-        <!-- Legal -->
         <nav aria-label="Legal">
           <p class="footer-v2__col-title">Legal</p>
           <a href="#" class="footer-v2__link">Termos de uso</a>
           <a href="#" class="footer-v2__link">Privacidade</a>
         </nav>
-
       </div>
-
       <div class="footer-v2__bottom">
         <p class="footer-v2__legal">tocozinhando.com · tocozinhando.com.br</p>
         <p class="footer-v2__paw">Jurema aprova. 🐾</p>
@@ -829,11 +704,55 @@
     </div>
   </footer>
 
+  <!-- Dados inline de receitas (fallback quando JSON não carrega) -->
+  <script>
+  window.RECEITAS_DATA = [
+    { id:"1", slug:"macarrao-alho-oleo", title:"Macarrão ao Alho e Óleo",
+      description:"Clássico italiano pronto em 20 minutos. Poucos ingredientes, sabor de restaurante.",
+      image:{ thumb:"", alt:"Macarrão ao alho e óleo" }, area:"pra-ja",
+      categories:{ primary:"massa" }, tags:["rápida","massa","italiana"],
+      time:{ prep:5, cook:15, total:20 }, servings:2, difficulty:"fácil",
+      jurema_quote:"Esse cheirinho de alho na frigideira não tem preço." },
+    { id:"2", slug:"frango-assado-domingo", title:"Frango Assado de Domingo",
+      description:"Suculento, crocante por fora e temperado desde a véspera. Ritual de família.",
+      image:{ thumb:"", alt:"Frango assado dourado" }, area:"familia",
+      categories:{ primary:"frango" }, tags:["família","almoço","forno"],
+      time:{ prep:20, cook:60, total:80 }, servings:4, difficulty:"fácil",
+      jurema_quote:"Arroz, feijão e esse frango. Perfeição." },
+    { id:"3", slug:"bolo-banana-aveia", title:"Bolo de Banana com Aveia",
+      description:"Úmido, sem farinha branca e pronto em 40 minutos. Ótimo pro café da manhã.",
+      image:{ thumb:"", alt:"Bolo de banana fatiado" }, area:"leve",
+      categories:{ primary:"bolo" }, tags:["leve","café da manhã","sem glúten"],
+      time:{ prep:10, cook:35, total:45 }, servings:8, difficulty:"iniciante",
+      jurema_quote:"Banana madura no balcão? Não joga fora — faz bolo." },
+    { id:"4", slug:"curry-grao-bico", title:"Curry de Grão de Bico",
+      description:"Cremoso, aromático e vegetariano. Leva meia hora e impressiona qualquer um.",
+      image:{ thumb:"", alt:"Curry de grão de bico com arroz" }, area:"pelo-mundo",
+      categories:{ primary:"legumes" }, tags:["vegetariana","indiana","rápida"],
+      time:{ prep:10, cook:25, total:35 }, servings:3, difficulty:"fácil",
+      jurema_quote:"Esse curry abraça. Confia." },
+    { id:"5", slug:"brigadeiro-classico", title:"Brigadeiro Clássico",
+      description:"Quatro ingredientes. A sobremesa mais amada do Brasil. Impossível errar.",
+      image:{ thumb:"", alt:"Brigadeiros enrolados no granulado" }, area:"familia",
+      categories:{ primary:"doce" }, tags:["doce","festa","infantil"],
+      time:{ prep:5, cook:15, total:20 }, servings:25, difficulty:"iniciante",
+      jurema_quote:"Brigadeiro feito em casa bate qualquer confeitaria." },
+    { id:"6", slug:"ovos-mexidos-cremosos", title:"Ovos Mexidos Cremosos",
+      description:"O jeito certo de fazer: fogo baixo, manteiga e paciência. Resultado é outro.",
+      image:{ thumb:"", alt:"Ovos mexidos cremosos com torrada" }, area:"pra-ja",
+      categories:{ primary:"ovos" }, tags:["café da manhã","rápida","ovos"],
+      time:{ prep:2, cook:8, total:10 }, servings:1, difficulty:"iniciante",
+      jurema_quote:"Ovo bom precisa de tempo. Apressado come ovo borrachudo." }
+  ];
+  </script>
+
   <script src="assets/js/search.js"></script>
   <script src="assets/js/utils.js"></script>
   <script src="assets/js/jurema.js"></script>
   <script src="assets/js/app.js"></script>
+
   <script>
+    /* Newsletter */
     document.getElementById('newsletter-form')?.addEventListener('submit', function(e) {
       e.preventDefault();
       const input = this.querySelector('input[type="email"]');
@@ -844,6 +763,21 @@
         if (btn) { btn.textContent = 'Quero receber'; btn.disabled = false; }
         if (input) input.value = '';
       }, 4000);
+    });
+
+    /* Busca — integração com Jurema */
+    document.addEventListener('DOMContentLoaded', () => {
+      const input = document.getElementById('search-input');
+      const form  = document.getElementById('search-form');
+      const jurema = window._juremaInstance;
+
+      input?.addEventListener('focus', () => {
+        if (window._juremaInstance) window._juremaInstance.setState('focus');
+      });
+      input?.addEventListener('input', (e) => {
+        if (window._juremaInstance)
+          window._juremaInstance.setState(e.target.value.length > 0 ? 'typing' : 'focus');
+      });
     });
   </script>
 </body>
