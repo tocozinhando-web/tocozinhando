@@ -23,7 +23,7 @@
     body { background: #fff; }
 
     :root {
-      --bg-gray:   #EDEBE4;
+      --bg-gray:   #ECECEC;
       --section-r: 28px;
       --section-mx: 12px;
     }
@@ -96,7 +96,7 @@
 
     .hero-v2__title {
       font-family: var(--font-display);
-      font-size: clamp(2.8rem, 8vw, 6rem);
+      font-size: clamp(1.75rem, 5.2vw, 6rem);
       font-weight: 800; color: var(--espresso);
       line-height: 1.05; letter-spacing: -.03em; margin-bottom: 0;
     }
@@ -369,6 +369,18 @@
       :root { --section-mx: 28px; }
       .footer-v2__grid { grid-template-columns: 2fr 1fr 1fr 1fr 1fr; }
     }
+
+    /* ── TÍTULO: garantia de 2 linhas em qualquer tela ────── */
+    .hero-v2__title {
+      /* Mobile first: cabe em 2 linhas de ~343px */
+      font-size: clamp(1.75rem, 5.2vw, 6rem);
+      white-space: normal;
+    }
+
+    /* Abaixo de 420px, reduz mais */
+    @media (max-width: 420px) {
+      .hero-v2__title { font-size: 1.65rem; }
+    }
   </style>
 </head>
 <body>
@@ -419,7 +431,7 @@
           <span class="hero-v2__eyebrow" aria-hidden="true">Receitas para se orgulhar</span>
 
           <h1 class="hero-v2__title" id="hero-title">
-            O que vai sair da<br>sua cozinha <em>hoje?</em>
+            O que vai sair da<br>sua cozinha&nbsp;<em>hoje?</em>
           </h1>
 
           <!-- Jurema -->
