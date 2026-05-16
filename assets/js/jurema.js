@@ -1,12 +1,14 @@
 /**
- * jurema.js — Máquina de estados da mascote Jurema
- * Tô Cozinhando v1.3 MVP
+ * jurema.js — Mascote Jurema (estática + remoção de fundo preto)
+ * Tô Cozinhando v1.4 MVP
  *
- * Correções v1.3:
- *   - Detecção automática do caminho base (resolve problema em subpáginas)
- *   - Flipbook resiliente: frame que falha é pulado, animação não para
- *   - Fallback não bloqueia tentativas futuras de carregamento
- *   - Sem dependência de eventos load/error para o flipbook
+ * Sem animação por enquanto — usa IMG_6910.PNG como imagem fixa.
+ * Remove o fundo preto automaticamente via Canvas API,
+ * permitindo que a Jurema apareça limpa sobre qualquer fundo.
+ *
+ * Quando novas poses chegarem:
+ *   → substitua o valor de this.staticImg
+ *   → reative o flipbook comentado no final do arquivo
  */
 
 class Jurema {
@@ -17,112 +19,113 @@ class Jurema {
     this.speechEl = document.getElementById('jurema-speech-text');
 
     this.currentState = 'idle';
-    this.lastChange   = 0;
-    this.cooldown     = options.cooldown || 350;
-    this.transitionMs = 150;
+    this.basePath     = 'assets/imagens/jurema/';
 
-    // ── DETECÇÃO AUTOMÁTICA DO CAMINHO BASE ─────────────────────
-    // Detecta se está na raiz ou em subpasta e ajusta o caminho
-    this.basePath = this._detectBasePath(options.basePath);
+    // ── IMAGEM ESTÁTICA ATUAL ────────────────────────────────────
+    // Quando tiver as outras poses, troque este nome e reative o flipbook
+    this.staticImg = 'IMG_6910.PNG';
     // ────────────────────────────────────────────────────────────
 
-    // ── FLIPBOOK IDLE ────────────────────────────────────────────
-    // Nomes exatos como estão no GitHub
-    this.idleFrames = [
-      'IMG_6914.png',
-      'IMG_6915.png',
-      'IMG_6916.png',
-      'IMG_6917.png',
-      'IMG_6918.png',
-      'IMG_6919.png',
-      'IMG_6920.png',
-      'IMG_6921.png',
-    ];
-    this.idleFrame    = 0;
-    this.idleTimer    = null;
-    this.idleInterval = options.idleInterval || 250; // ms por frame (~4fps, natural para idle)
-    this.imagesOk     = false; // flag: imagens verificadas
-    // ────────────────────────────────────────────────────────────
-
-    // Estados (substitua os imgs quando tiver as outras poses)
-    this.states = {
-      idle:      { pose: 'sentada',    speech: 'Me conta o que tem aí. Eu farejo uma boa ideia.' },
-      hover:     { img: null,          pose: 'atenta',      speech: 'O que você quer cozinhar hoje?' },
-      focus:     { img: null,          pose: 'curiosa',     speech: 'O que você tem em casa?' },
-      typing:    { img: null,          pose: 'animada',     speech: 'Estou prestando atenção…' },
-      loading:   { img: null,          pose: 'farejando',   speech: 'Tô farejando uma ideia boa.' },
-      success:   { img: null,          pose: 'orgulhosa',   speech: 'Achei! Olha o que encontrei.' },
-      empty:     { img: null,          pose: 'pensativa',   speech: 'Não achei, mas tenho ideias parecidas.' },
-      completed: { img: null,          pose: 'comemorando', speech: 'Pronto. Agora pode dizer: eu que fiz.' },
+    // Falas por estado (para quando o usuário interagir com a busca)
+    this.speeches = {
+      idle:      'Me conta o que tem aí. Eu farejo uma boa ideia.',
+      hover:     'O que você quer cozinhar hoje?',
+      focus:     'O que você tem em casa?',
+      typing:    'Estou prestando atenção…',
+      loading:   'Tô farejando uma ideia boa.',
+      success:   'Achei! Olha o que encontrei.',
+      empty:     'Não achei, mas tenho ideias parecidas.',
+      completed: 'Pronto. Agora pode dizer: eu que fiz.',
     };
-    // Quando img = null, usa o frame atual do idle (mesma imagem)
 
     this._init();
-  }
-
-  /* ============================================================
-     PRIVADO: retorna o caminho base das imagens da Jurema
-     Fixo e relativo — funciona em todas as páginas do site
-  ============================================================ */
-  _detectBasePath(override) {
-    if (override) return override;
-    // Caminho relativo fixo: funciona em index.html, receita.html etc
-    // pois todos estão no mesmo nível de diretório
-    return 'assets/imagens/jurema/';
-  }
-
-  /* ============================================================
-     PRIVADO: inicialização — testa se as imagens existem
-  ============================================================ */
-  _init() {
-    if (!this.img) return;
-
-    // Estilo de transição
-    this.img.style.transition = `opacity ${this.transitionMs}ms ease, transform ${this.transitionMs}ms ease`;
-
-    // Testa se o primeiro frame carrega
-    const testImg = new Image();
-    testImg.onload = () => {
-      // ✅ Imagens existem → inicia flipbook
-      this.imagesOk = true;
-      this._showImage();
-      this._startIdleLoop();
-    };
-    testImg.onerror = () => {
-      // ❌ Imagens não encontradas → mostra fallback
-      console.warn('[Jurema] Imagens não encontradas em:', this.basePath + this.idleFrames[0]);
-      this._showFallback();
-    };
-    testImg.src = this.basePath + this.idleFrames[0] + '?t=' + Date.now();
-
     this._bindHeroEvents();
   }
 
   /* ============================================================
-     PÚBLICO: muda o estado
+     PRIVADO: inicializa — carrega imagem e remove fundo preto
+  ============================================================ */
+  _init() {
+    if (!this.img) return;
+
+    const src = this.basePath + this.staticImg;
+
+    // Cria imagem auxiliar para processar via Canvas
+    const loader = new Image();
+    loader.crossOrigin = 'anonymous';
+
+    loader.onload = () => {
+      // Remove o fundo preto via Canvas e substitui o src
+      const cleanSrc = this._removeBlackBackground(loader, 40);
+      if (cleanSrc) {
+        this.img.src = cleanSrc;
+        this.img.style.display = 'block';
+        if (this.fallback) this.fallback.style.display = 'none';
+      } else {
+        // Canvas falhou — usa imagem original mesmo
+        this.img.src = src;
+        this.img.style.display = 'block';
+        if (this.fallback) this.fallback.style.display = 'none';
+      }
+    };
+
+    loader.onerror = () => {
+      // Imagem não encontrada — mostra fallback CSS
+      console.warn('[Jurema] Imagem não encontrada:', src);
+      if (this.img)     this.img.style.display     = 'none';
+      if (this.fallback) this.fallback.style.display = 'flex';
+    };
+
+    loader.src = src + '?v=' + Date.now(); // evita cache de versão anterior
+  }
+
+  /* ============================================================
+     PRIVADO: remove fundo preto via Canvas
+     threshold: 0-255, pixels com R,G,B abaixo disso viram transparentes
+  ============================================================ */
+  _removeBlackBackground(imgEl, threshold = 40) {
+    try {
+      const canvas = document.createElement('canvas');
+      canvas.width  = imgEl.naturalWidth;
+      canvas.height = imgEl.naturalHeight;
+
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(imgEl, 0, 0);
+
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imageData.data;
+
+      for (let i = 0; i < data.length; i += 4) {
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
+
+        // Pixel é fundo preto se todos os canais estão abaixo do threshold
+        if (r < threshold && g < threshold && b < threshold) {
+          data[i + 3] = 0; // transparente
+        }
+      }
+
+      ctx.putImageData(imageData, 0, 0);
+      return canvas.toDataURL('image/png');
+
+    } catch (e) {
+      // CORS ou outro erro — retorna null para usar imagem original
+      console.warn('[Jurema] Canvas falhou:', e.message);
+      return null;
+    }
+  }
+
+  /* ============================================================
+     PÚBLICO: muda estado (fala + texto de pose)
+     Sem troca de imagem por enquanto — só muda o balão
   ============================================================ */
   setState(state) {
-    const now = Date.now();
-    if (now - this.lastChange < this.cooldown) return;
     if (this.currentState === state) return;
-
-    const config = this.states[state];
-    if (!config) return;
-
     this.currentState = state;
-    this.lastChange   = now;
 
-    if (state === 'idle') {
-      this._startIdleLoop();
-    } else {
-      this._stopIdleLoop();
-      // Se não tem imagem específica para o estado, usa frame atual do idle
-      const imgFile = config.img || this.idleFrames[this.idleFrame];
-      if (this.imagesOk) this._transitionTo(imgFile);
-    }
-
-    this._updateSpeech(config.speech);
-    this._updatePose(config.pose);
+    const fala = this.speeches[state] || this.speeches.idle;
+    this._updateSpeech(fala);
 
     document.dispatchEvent(new CustomEvent('jurema:stateChange', {
       detail: { state }
@@ -132,62 +135,7 @@ class Jurema {
   getState() { return this.currentState; }
 
   /* ============================================================
-     PRIVADO: flipbook
-  ============================================================ */
-  _startIdleLoop() {
-    this._stopIdleLoop();
-    if (!this.imagesOk || !this.img) return;
-
-    // Exibe frame atual imediatamente
-    this.img.src = this.basePath + this.idleFrames[this.idleFrame];
-
-    this.idleTimer = setInterval(() => {
-      this.idleFrame = (this.idleFrame + 1) % this.idleFrames.length;
-      if (this.img && this.currentState === 'idle') {
-        // Troca direta sem fade — fluido como animação
-        this.img.src = this.basePath + this.idleFrames[this.idleFrame];
-      }
-    }, this.idleInterval);
-  }
-
-  _stopIdleLoop() {
-    if (this.idleTimer) {
-      clearInterval(this.idleTimer);
-      this.idleTimer = null;
-    }
-  }
-
-  /* ============================================================
-     PRIVADO: transição com fade (para estados não-idle)
-  ============================================================ */
-  _transitionTo(imgFile) {
-    if (!this.img) return;
-    this.img.style.opacity   = '0';
-    this.img.style.transform = 'translateY(4px) scale(0.97)';
-    setTimeout(() => {
-      this.img.src = this.basePath + imgFile;
-      requestAnimationFrame(() => {
-        this.img.style.opacity   = '1';
-        this.img.style.transform = 'translateY(0) scale(1)';
-      });
-    }, this.transitionMs);
-  }
-
-  /* ============================================================
-     PRIVADO: mostrar/ocultar imagem e fallback
-  ============================================================ */
-  _showImage() {
-    if (this.img)     { this.img.style.display     = 'block'; this.img.style.opacity = '1'; }
-    if (this.fallback){ this.fallback.style.display = 'none';  }
-  }
-
-  _showFallback() {
-    if (this.img)     { this.img.style.display     = 'none'; }
-    if (this.fallback){ this.fallback.style.display = 'flex'; }
-  }
-
-  /* ============================================================
-     PRIVADO: balão de fala e texto de pose
+     PRIVADO: atualiza balão de fala com fade suave
   ============================================================ */
   _updateSpeech(text) {
     if (!this.speechEl) return;
@@ -195,15 +143,11 @@ class Jurema {
     setTimeout(() => {
       this.speechEl.textContent = text;
       this.speechEl.style.opacity = '1';
-    }, this.transitionMs);
-  }
-
-  _updatePose(pose) {
-    if (this.poseTxt) this.poseTxt.textContent = pose;
+    }, 150);
   }
 
   /* ============================================================
-     PRIVADO: hover no wrapper
+     PRIVADO: hover no wrapper do hero
   ============================================================ */
   _bindHeroEvents() {
     const wrapper = document.getElementById('jurema-wrapper');
@@ -218,3 +162,26 @@ class Jurema {
 }
 
 window.Jurema = Jurema;
+
+/* ================================================================
+   FLIPBOOK — desativado por enquanto
+   Para reativar quando tiver as poses todas:
+
+   1. Substitua this.staticImg por um array de frames
+   2. Descomente o bloco abaixo
+   3. Chame this._startIdleLoop() no final de _init()
+   ================================================================
+
+  _startIdleLoop() {
+    this.idleTimer = setInterval(() => {
+      this.idleFrame = (this.idleFrame + 1) % this.idleFrames.length;
+      if (this.img && this.currentState === 'idle') {
+        this.img.src = this.basePath + this.idleFrames[this.idleFrame];
+      }
+    }, 250);
+  }
+
+  _stopIdleLoop() {
+    if (this.idleTimer) { clearInterval(this.idleTimer); this.idleTimer = null; }
+  }
+*/
