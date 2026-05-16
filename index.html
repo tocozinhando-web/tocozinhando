@@ -1129,6 +1129,12 @@
           </div>
 
           <div class="jurema-v2-img">
+            <!--
+              VÍDEO DA JUREMA
+              Safari/iPhone: adicione jurema-apresentacao.mp4 na mesma pasta
+              para que o vídeo toque no iOS.
+              Converta no cloudconvert.com: WebM → MP4 (H.264)
+            -->
             <video
               id="jurema-video"
               class="jurema-v2-video"
@@ -1138,13 +1144,19 @@
               playsinline
               webkit-playsinline
               disablepictureinpicture
-              preload="auto"
+              preload="metadata"
               aria-label="Jurema, a mascote do Tô Cozinhando, se apresentando"
+              poster="assets/imagens/jurema/IMG_6907.PNG"
             >
+              <!-- MP4 primeiro: suportado por TODOS os browsers incluindo Safari/iOS -->
+              <source src="assets/imagens/jurema/jurema-apresentacao.mp4"  type="video/mp4">
+              <!-- WebM: Chrome, Firefox, Edge -->
               <source src="assets/imagens/jurema/jurema-apresentacao.webm" type="video/webm">
+              <!-- Fallback: imagem se nenhum formato tocar -->
               <img
                 src="assets/imagens/jurema/IMG_6907.PNG"
-                alt="Jurema sentada, segurando uma colher de pau"
+                alt="Jurema sentada segurando uma colher de pau"
+                class="jurema-v2-img-fallback"
                 loading="lazy"
               >
             </video>
@@ -1332,15 +1344,40 @@
 
 
   <script>
-    /* Força autoplay do vídeo da Jurema */
+    /* Força autoplay do vídeo da Jurema e trata fallback */
     window.addEventListener('DOMContentLoaded', () => {
       const v = document.getElementById('jurema-video');
       if (!v) return;
+
       v.muted = true;
-      const tryPlay = () => v.play().catch(() => {});
+
+      const tryPlay = () => {
+        const p = v.play();
+        if (p !== undefined) {
+          p.catch(() => {
+            // Vídeo bloqueado — mostra poster (imagem definida no atributo poster)
+            v.style.display = 'block';
+          });
+        }
+      };
+
+      // Tenta imediatamente
       tryPlay();
+
+      // Tenta de novo no primeiro toque (necessário em alguns iOS)
       document.addEventListener('touchstart', tryPlay, { once: true });
       document.addEventListener('click',      tryPlay, { once: true });
+
+      // Se o vídeo falhar em carregar (formato não suportado sem MP4)
+      v.addEventListener('error', () => {
+        // Mostra a imagem de poster como fallback visual
+        const img = v.querySelector('img');
+        if (img) {
+          img.style.display = 'block';
+          v.style.display = 'none';
+          v.parentElement.appendChild(img);
+        }
+      });
     });
   </script>
 </body>
