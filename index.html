@@ -61,7 +61,7 @@
     .hero-v2 {
       min-height: 100vh;
       min-height: 100dvh;
-      background: #EEEAE5;          /* cinza quente do mockup */
+      background: #EDEBE5;          /* cinza quente exato do mockup */
       padding-top: var(--header-h);
       display: flex;
       flex-direction: column;
@@ -331,8 +331,8 @@
         <div class="hero-v2__jurema" id="jurema-wrapper">
           <div id="jurema-stage-v2">
 
-            <!-- Balão de fala -->
-            <div class="hero-v2__bubble" role="status" aria-live="polite">
+            <!-- Balão de fala — começa oculto, JS mostra quando imagem carrega -->
+            <div class="hero-v2__bubble" role="status" aria-live="polite" style="display:none;">
               <p id="jurema-speech-text">Me conta o que tem aí. Eu farejo uma boa ideia.</p>
             </div>
 
@@ -349,8 +349,8 @@
               <div class="jurema-fallback__silhouette">
                 <div class="jurema-fallback__bandana"></div>
               </div>
-              <p class="jurema-fallback__name">Jurema</p>
-              <p class="jurema-fallback__pose" id="jurema-pose">sentada</p>
+              <p class="jurema-fallback__name" style="display:none">Jurema</p>
+              <p class="jurema-fallback__pose" id="jurema-pose" style="display:none">sentada</p>
             </div>
 
           </div>
