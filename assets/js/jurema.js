@@ -1,10 +1,9 @@
 /**
- * jurema.js — Mascote Jurema (imagem estática)
- * Tô Cozinhando v1.5 MVP
+ * jurema.js — Mascote Jurema v1.6
+ * Tô Cozinhando MVP
  *
- * Carrega IMG_6910.PNG e remove o fundo preto via Canvas.
- * Sem crossOrigin — funciona corretamente no GitHub Pages (same-origin).
- * Sem animação por enquanto.
+ * Usa flood fill BFS a partir das bordas para remover o fundo preto
+ * sem afetar o pelo escuro da Jurema (que não está conectado às bordas).
  */
 
 class Jurema {
@@ -12,10 +11,8 @@ class Jurema {
     this.img      = document.getElementById('jurema-img');
     this.fallback = document.getElementById('jurema-fallback');
     this.speechEl = document.getElementById('jurema-speech-text');
-    this.bubble   = document.querySelector('.hero-v2__bubble');
-
     this.currentState = 'idle';
-    this.imgPath      = 'assets/imagens/jurema/IMG_6910.PNG';
+    this.imgPath = 'assets/imagens/jurema/IMG_6910.PNG';
 
     this.falas = {
       idle:      'Me conta o que tem aí. Eu farejo uma boa ideia.',
@@ -31,87 +28,83 @@ class Jurema {
     this._carregar();
   }
 
-  /* ============================================================
-     Carrega a imagem e tenta remover o fundo preto via Canvas
-  ============================================================ */
   _carregar() {
     if (!this.img) return;
-
-    // Esconde tudo até carregar
     this.img.style.display = 'none';
     if (this.fallback) this.fallback.style.display = 'none';
-    if (this.bubble)   this.bubble.style.display   = 'none';
 
     const loader = new Image();
-    // SEM crossOrigin — imagens do mesmo domínio não precisam
-
     loader.onload = () => {
-      // Tenta remover fundo preto via Canvas
-      const limpa = this._removerFundoPreto(loader, 15);
-
-      if (limpa) {
-        this.img.src = limpa;
-      } else {
-        // Canvas falhou — usa imagem direta (pode ter fundo preto visível)
-        this.img.src = this.imgPath;
-      }
-
+      const limpa = this._floodFill(loader, 40);
+      this.img.src = limpa || this.imgPath;
       this.img.style.display = 'block';
       if (this.fallback) this.fallback.style.display = 'none';
-      if (this.bubble)   this.bubble.style.display   = 'block';
     };
-
     loader.onerror = () => {
-      // Imagem não encontrada no servidor
-      console.warn('[Jurema] Arquivo não encontrado:', this.imgPath);
-      console.warn('[Jurema] Faça o upload de IMG_6910.PNG em assets/imagens/jurema/');
-      // Mostra fallback CSS
       if (this.fallback) this.fallback.style.display = 'flex';
-      if (this.bubble)   this.bubble.style.display   = 'block';
     };
-
     loader.src = this.imgPath;
   }
 
-  /* ============================================================
-     Remove pixels pretos (ou próximos de preto) deixando transparentes
-     threshold: 0–255 (35 é um bom valor para fundos puros)
-  ============================================================ */
-  _removerFundoPreto(imgEl, threshold = 15) {
+  /* ── FLOOD FILL BFS ─────────────────────────────────────────
+     Começa pelas 4 bordas da imagem e remove apenas pixels
+     CONECTADOS à borda que sejam escuros (fundo preto).
+     O pelo escuro da Jurema, por estar isolado no interior,
+     nunca é tocado.
+  ──────────────────────────────────────────────────────────── */
+  _floodFill(imgEl, threshold) {
     try {
-      const canvas = document.createElement('canvas');
-      canvas.width  = imgEl.naturalWidth;
-      canvas.height = imgEl.naturalHeight;
+      const W = imgEl.naturalWidth, H = imgEl.naturalHeight;
+      if (!W || !H) return null;
 
+      const canvas = document.createElement('canvas');
+      canvas.width = W; canvas.height = H;
       const ctx = canvas.getContext('2d');
       ctx.drawImage(imgEl, 0, 0);
 
-      // getImageData lança SecurityError se tainted (cross-origin)
-      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      const px = imageData.data;
+      const id  = ctx.getImageData(0, 0, W, H);
+      const px  = id.data;
+      const vis = new Uint8Array(W * H);
+      const q   = new Int32Array(W * H);
+      let head = 0, tail = 0;
 
-      for (let i = 0; i < px.length; i += 4) {
-        if (px[i] < threshold && px[i+1] < threshold && px[i+2] < threshold) {
-          px[i+3] = 0; // transparente
-        }
+      const dark = (i4) =>
+        px[i4] < threshold && px[i4+1] < threshold && px[i4+2] < threshold;
+
+      const push = (x, y) => {
+        const i = y * W + x;
+        if (vis[i]) return;
+        if (!dark(i * 4)) return;
+        vis[i] = 1;
+        q[tail++] = i;
+      };
+
+      /* Semeia as bordas */
+      for (let x = 0; x < W; x++) { push(x, 0); push(x, H - 1); }
+      for (let y = 1; y < H - 1; y++) { push(0, y); push(W - 1, y); }
+
+      /* BFS */
+      while (head < tail) {
+        const i = q[head++];
+        px[i * 4 + 3] = 0; // transparente
+        const x = i % W, y = (i / W) | 0;
+        if (x > 0)   push(x - 1, y);
+        if (x < W-1) push(x + 1, y);
+        if (y > 0)   push(x, y - 1);
+        if (y < H-1) push(x, y + 1);
       }
 
-      ctx.putImageData(imageData, 0, 0);
+      ctx.putImageData(id, 0, 0);
       return canvas.toDataURL('image/png');
-
     } catch (e) {
-      // Canvas tainted ou não suportado
+      console.warn('[Jurema] Canvas flood fill falhou:', e.message);
       return null;
     }
   }
 
-  /* ============================================================
-     Muda o estado (só atualiza a fala — sem trocar imagem por ora)
-  ============================================================ */
   setState(state) {
     if (this.currentState === state) return;
     this.currentState = state;
-
     const fala = this.falas[state] || this.falas.idle;
     if (this.speechEl) {
       this.speechEl.style.opacity = '0';
@@ -120,7 +113,6 @@ class Jurema {
         this.speechEl.style.opacity = '1';
       }, 150);
     }
-
     document.dispatchEvent(new CustomEvent('jurema:stateChange', { detail: { state } }));
   }
 
