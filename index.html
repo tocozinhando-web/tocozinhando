@@ -1128,13 +1128,16 @@
             </a>
           </div>
 
-          <div class="jurema-v2-img">
-            <!--
-              VÍDEO DA JUREMA
-              Safari/iPhone: adicione jurema-apresentacao.mp4 na mesma pasta
-              para que o vídeo toque no iOS.
-              Converta no cloudconvert.com: WebM → MP4 (H.264)
-            -->
+          <div class="jurema-v2-img" id="jurema-intro-wrap">
+            <!-- Imagem de fallback — sempre visível até o vídeo confirmar que tocou -->
+            <img
+              id="jurema-intro-img"
+              src="assets/imagens/jurema/IMG_6907.PNG"
+              alt="Jurema sentada segurando uma colher de pau"
+              class="jurema-v2-video"
+              loading="lazy"
+            >
+            <!-- Vídeo oculto — JS mostra só se conseguir tocar -->
             <video
               id="jurema-video"
               class="jurema-v2-video"
@@ -1144,21 +1147,12 @@
               playsinline
               webkit-playsinline
               disablepictureinpicture
-              preload="metadata"
-              aria-label="Jurema, a mascote do Tô Cozinhando, se apresentando"
-              poster="assets/imagens/jurema/IMG_6907.PNG"
+              preload="auto"
+              aria-label="Jurema se apresentando"
+              style="display:none;"
             >
-              <!-- MP4 primeiro: suportado por TODOS os browsers incluindo Safari/iOS -->
               <source src="assets/imagens/jurema/jurema-apresentacao.mp4"  type="video/mp4">
-              <!-- WebM: Chrome, Firefox, Edge -->
               <source src="assets/imagens/jurema/jurema-apresentacao.webm" type="video/webm">
-              <!-- Fallback: imagem se nenhum formato tocar -->
-              <img
-                src="assets/imagens/jurema/IMG_6907.PNG"
-                alt="Jurema sentada segurando uma colher de pau"
-                class="jurema-v2-img-fallback"
-                loading="lazy"
-              >
             </video>
           </div>
 
@@ -1344,41 +1338,48 @@
 
 
   <script>
-    /* Força autoplay do vídeo da Jurema e trata fallback */
-    window.addEventListener('DOMContentLoaded', () => {
-      const v = document.getElementById('jurema-video');
-      if (!v) return;
+    /* Jurema vídeo — estratégia simples:
+       1. Imagem sempre visível por padrão (fallback garantido)
+       2. Tenta tocar o vídeo
+       3. Se funcionar: esconde imagem, mostra vídeo
+       4. Se falhar: imagem permanece visível */
+    (function() {
+      const img = document.getElementById('jurema-intro-img');
+      const vid = document.getElementById('jurema-video');
+      if (!img || !vid) return;
 
-      v.muted = true;
+      vid.muted = true;
 
-      const tryPlay = () => {
-        const p = v.play();
-        if (p !== undefined) {
-          p.catch(() => {
-            // Vídeo bloqueado — mostra poster (imagem definida no atributo poster)
-            v.style.display = 'block';
+      function showVideo() {
+        vid.style.display = 'block';
+        img.style.display = 'none';
+      }
+
+      function play() {
+        var p = vid.play();
+        if (p && p.then) {
+          p.then(showVideo).catch(function() {
+            /* Mantém imagem visível — sem ação */
           });
+        } else {
+          showVideo();
         }
-      };
+      }
 
-      // Tenta imediatamente
-      tryPlay();
+      /* Aguarda o vídeo ter dados suficientes antes de tentar */
+      if (vid.readyState >= 3) {
+        play();
+      } else {
+        vid.addEventListener('canplay', play, { once: true });
+      }
 
-      // Tenta de novo no primeiro toque (necessário em alguns iOS)
-      document.addEventListener('touchstart', tryPlay, { once: true });
-      document.addEventListener('click',      tryPlay, { once: true });
-
-      // Se o vídeo falhar em carregar (formato não suportado sem MP4)
-      v.addEventListener('error', () => {
-        // Mostra a imagem de poster como fallback visual
-        const img = v.querySelector('img');
-        if (img) {
-          img.style.display = 'block';
-          v.style.display = 'none';
-          v.parentElement.appendChild(img);
-        }
+      /* Tenta de novo no primeiro gesto do usuário (iOS) */
+      ['touchend', 'click'].forEach(function(ev) {
+        document.addEventListener(ev, function() {
+          if (vid.paused) play();
+        }, { once: true });
       });
-    });
+    })();
   </script>
 </body>
 </html>
