@@ -47,7 +47,7 @@ class Jurema {
 
     loader.onload = () => {
       // Tenta remover fundo preto via Canvas
-      const limpa = this._removerFundoPreto(loader, 35);
+      const limpa = this._removerFundoPreto(loader, 15);
 
       if (limpa) {
         this.img.src = limpa;
@@ -77,7 +77,7 @@ class Jurema {
      Remove pixels pretos (ou próximos de preto) deixando transparentes
      threshold: 0–255 (35 é um bom valor para fundos puros)
   ============================================================ */
-  _removerFundoPreto(imgEl, threshold) {
+  _removerFundoPreto(imgEl, threshold = 15) {
     try {
       const canvas = document.createElement('canvas');
       canvas.width  = imgEl.naturalWidth;
