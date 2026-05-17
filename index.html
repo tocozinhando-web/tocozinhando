@@ -373,6 +373,7 @@
 
     .jurema-v2-img {
       display: flex; justify-content: center; align-items: flex-end;
+      background: transparent;
     }
     .jurema-v2-img img {
       width: clamp(300px, 52vw, 560px);
@@ -398,6 +399,31 @@
     /* Jurema tip: taupe itálico sobre branco levemente tintado */
     .jurema-tip p { font-family: var(--font-display); font-style: italic; }
 
+    /* Vídeo da Jurema — remove fundo preto via mix-blend-mode */
+    .jurema-v2-video {
+      width: clamp(300px, 52vw, 560px);
+      height: auto;
+      display: block;
+      pointer-events: none;
+      /* mix-blend-mode: screen faz pixels pretos (0,0,0) ficarem transparentes */
+      mix-blend-mode: screen;
+      /* Aumenta contraste para compensar o clareamento do blend */
+      filter: contrast(1.15) brightness(1.05);
+    }
+    /* Imagem de fallback — sem blend */
+    #jurema-intro-img {
+      mix-blend-mode: normal;
+      filter: none;
+    }
+    /* Remove controles nativos do browser */
+    .jurema-v2-video::-webkit-media-controls,
+    .jurema-v2-video::-webkit-media-controls-enclosure,
+    .jurema-v2-video::-webkit-media-controls-panel,
+    .jurema-v2-video::-webkit-media-controls-overlay-play-button,
+    .jurema-v2-video::-webkit-media-controls-play-button {
+      display: none !important;
+      -webkit-appearance: none;
+    }
     /* ══════════════════════════════════════════════════════════
        NEWSLETTER — ajustes de contraste
     ══════════════════════════════════════════════════════════ */
@@ -535,6 +561,31 @@
       -webkit-appearance: none;
     }
 
+    /* Vídeo da Jurema — remove fundo preto via mix-blend-mode */
+    .jurema-v2-video {
+      width: clamp(300px, 52vw, 560px);
+      height: auto;
+      display: block;
+      pointer-events: none;
+      /* mix-blend-mode: screen faz pixels pretos (0,0,0) ficarem transparentes */
+      mix-blend-mode: screen;
+      /* Aumenta contraste para compensar o clareamento do blend */
+      filter: contrast(1.15) brightness(1.05);
+    }
+    /* Imagem de fallback — sem blend */
+    #jurema-intro-img {
+      mix-blend-mode: normal;
+      filter: none;
+    }
+    /* Remove controles nativos do browser */
+    .jurema-v2-video::-webkit-media-controls,
+    .jurema-v2-video::-webkit-media-controls-enclosure,
+    .jurema-v2-video::-webkit-media-controls-panel,
+    .jurema-v2-video::-webkit-media-controls-overlay-play-button,
+    .jurema-v2-video::-webkit-media-controls-play-button {
+      display: none !important;
+      -webkit-appearance: none;
+    }
     /* ══════════════════════════════════════════════════════════
        NEWSLETTER — botão centralizado no mobile
     ══════════════════════════════════════════════════════════ */
