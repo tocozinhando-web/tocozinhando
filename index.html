@@ -344,7 +344,7 @@
        CONHEÇA A JUREMA
     ══════════════════════════════════════════════════════════ */
     .section-jurema-v2 {
-      background: var(--bg-gray);
+      background: #F0EEEB;
       margin: 8px var(--section-mx) 0;
       border-radius: var(--section-r);
       padding: var(--space-16) 0 0;
@@ -399,30 +399,21 @@
     /* Jurema tip: taupe itálico sobre branco levemente tintado */
     .jurema-tip p { font-family: var(--font-display); font-style: italic; }
 
-    /* Vídeo da Jurema — remove fundo preto via mix-blend-mode */
-    .jurema-v2-video {
-      width: clamp(300px, 52vw, 560px);
+    /* Canvas da Jurema — transparente sobre o fundo da seção */
+    #jurema-canvas {
+      width: clamp(280px, 50vw, 540px);
+      height: auto;
+      display: none;            /* JS ativa quando vídeo carrega */
+      pointer-events: none;
+      background: transparent;
+    }
+
+    /* Imagem fallback */
+    #jurema-intro-img {
+      width: clamp(280px, 50vw, 540px);
       height: auto;
       display: block;
       pointer-events: none;
-      /* mix-blend-mode: screen faz pixels pretos (0,0,0) ficarem transparentes */
-      mix-blend-mode: screen;
-      /* Aumenta contraste para compensar o clareamento do blend */
-      filter: contrast(1.15) brightness(1.05);
-    }
-    /* Imagem de fallback — sem blend */
-    #jurema-intro-img {
-      mix-blend-mode: normal;
-      filter: none;
-    }
-    /* Remove controles nativos do browser */
-    .jurema-v2-video::-webkit-media-controls,
-    .jurema-v2-video::-webkit-media-controls-enclosure,
-    .jurema-v2-video::-webkit-media-controls-panel,
-    .jurema-v2-video::-webkit-media-controls-overlay-play-button,
-    .jurema-v2-video::-webkit-media-controls-play-button {
-      display: none !important;
-      -webkit-appearance: none;
     }
     /* ══════════════════════════════════════════════════════════
        NEWSLETTER — ajustes de contraste
@@ -561,30 +552,21 @@
       -webkit-appearance: none;
     }
 
-    /* Vídeo da Jurema — remove fundo preto via mix-blend-mode */
-    .jurema-v2-video {
-      width: clamp(300px, 52vw, 560px);
+    /* Canvas da Jurema — transparente sobre o fundo da seção */
+    #jurema-canvas {
+      width: clamp(280px, 50vw, 540px);
+      height: auto;
+      display: none;            /* JS ativa quando vídeo carrega */
+      pointer-events: none;
+      background: transparent;
+    }
+
+    /* Imagem fallback */
+    #jurema-intro-img {
+      width: clamp(280px, 50vw, 540px);
       height: auto;
       display: block;
       pointer-events: none;
-      /* mix-blend-mode: screen faz pixels pretos (0,0,0) ficarem transparentes */
-      mix-blend-mode: screen;
-      /* Aumenta contraste para compensar o clareamento do blend */
-      filter: contrast(1.15) brightness(1.05);
-    }
-    /* Imagem de fallback — sem blend */
-    #jurema-intro-img {
-      mix-blend-mode: normal;
-      filter: none;
-    }
-    /* Remove controles nativos do browser */
-    .jurema-v2-video::-webkit-media-controls,
-    .jurema-v2-video::-webkit-media-controls-enclosure,
-    .jurema-v2-video::-webkit-media-controls-panel,
-    .jurema-v2-video::-webkit-media-controls-overlay-play-button,
-    .jurema-v2-video::-webkit-media-controls-play-button {
-      display: none !important;
-      -webkit-appearance: none;
     }
     /* ══════════════════════════════════════════════════════════
        NEWSLETTER — botão centralizado no mobile
@@ -1180,27 +1162,26 @@
           </div>
 
           <div class="jurema-v2-img" id="jurema-intro-wrap">
-            <!-- Imagem de fallback — sempre visível até o vídeo confirmar que tocou -->
+            <!-- Canvas renderiza o vídeo quadro a quadro sem fundo preto -->
+            <canvas
+              id="jurema-canvas"
+              aria-label="Jurema, a mascote do Tô Cozinhando, se apresentando"
+              role="img"
+            ></canvas>
+            <!-- Imagem fallback — JS troca pelo canvas quando vídeo carrega -->
             <img
               id="jurema-intro-img"
               src="assets/imagens/jurema/IMG_6907.PNG"
               alt="Jurema sentada segurando uma colher de pau"
-              class="jurema-v2-video"
               loading="lazy"
             >
-            <!-- Vídeo oculto — JS mostra só se conseguir tocar -->
+            <!-- Vídeo oculto — apenas fonte de dados para o canvas -->
             <video
               id="jurema-video"
-              class="jurema-v2-video"
-              autoplay
-              loop
-              muted
-              playsinline
-              webkit-playsinline
-              disablepictureinpicture
-              preload="auto"
-              aria-label="Jurema se apresentando"
-              style="display:none;"
+              autoplay loop muted playsinline webkit-playsinline
+              disablepictureinpicture preload="auto"
+              style="display:none; position:absolute; width:1px; height:1px;"
+              aria-hidden="true"
             >
               <source src="assets/imagens/jurema/jurema-apresentacao.mp4"  type="video/mp4">
               <source src="assets/imagens/jurema/jurema-apresentacao.webm" type="video/webm">
@@ -1389,47 +1370,109 @@
 
 
   <script>
-    /* Jurema vídeo — estratégia simples:
-       1. Imagem sempre visível por padrão (fallback garantido)
-       2. Tenta tocar o vídeo
-       3. Se funcionar: esconde imagem, mostra vídeo
-       4. Se falhar: imagem permanece visível */
+    /* ── JUREMA ANIMADA — Canvas + Flood Fill por frame ──────────
+       Remove o fundo preto do vídeo quadro a quadro usando BFS.
+       O mesmo algoritmo usado para a imagem estática no hero.
+       Fallback: imagem estática se vídeo não carregar.
+    ─────────────────────────────────────────────────────────── */
     (function() {
-      const img = document.getElementById('jurema-intro-img');
-      const vid = document.getElementById('jurema-video');
-      if (!img || !vid) return;
+      var canvas = document.getElementById('jurema-canvas');
+      var img    = document.getElementById('jurema-intro-img');
+      var vid    = document.getElementById('jurema-video');
 
-      vid.muted = true;
+      if (!canvas || !img || !vid) return;
 
-      function showVideo() {
-        vid.style.display = 'block';
-        img.style.display = 'none';
+      var ctx = canvas.getContext('2d');
+      var raf = null;
+      var W, H;
+      var THRESHOLD = 20; // remove apenas preto puro (0..20)
+
+      function setupCanvas() {
+        W = vid.videoWidth;
+        H = vid.videoHeight;
+        if (!W || !H) return false;
+        canvas.width  = W;
+        canvas.height = H;
+        return true;
       }
 
-      function play() {
-        var p = vid.play();
-        if (p && p.then) {
-          p.then(showVideo).catch(function() {
-            /* Mantém imagem visível — sem ação */
-          });
-        } else {
-          showVideo();
+      /* BFS flood fill: remove pixels pretos conectados às bordas */
+      function removeBlack(imageData) {
+        var px  = imageData.data;
+        var vis = new Uint8Array(W * H);
+        var q   = new Int32Array(W * H);
+        var head = 0, tail = 0;
+
+        function isDark(i4) {
+          return px[i4] < THRESHOLD && px[i4+1] < THRESHOLD && px[i4+2] < THRESHOLD;
+        }
+
+        function push(x, y) {
+          var i = y * W + x;
+          if (vis[i] || !isDark(i * 4)) return;
+          vis[i] = 1;
+          q[tail++] = i;
+        }
+
+        /* Semeia as 4 bordas */
+        for (var x = 0; x < W; x++) { push(x, 0); push(x, H-1); }
+        for (var y = 1; y < H-1; y++) { push(0, y); push(W-1, y); }
+
+        /* BFS */
+        while (head < tail) {
+          var idx = q[head++];
+          px[idx * 4 + 3] = 0; /* transparente */
+          var cx = idx % W, cy = (idx / W) | 0;
+          if (cx > 0)   push(cx-1, cy);
+          if (cx < W-1) push(cx+1, cy);
+          if (cy > 0)   push(cx, cy-1);
+          if (cy < H-1) push(cx, cy+1);
         }
       }
 
-      /* Aguarda o vídeo ter dados suficientes antes de tentar */
-      if (vid.readyState >= 3) {
-        play();
-      } else {
-        vid.addEventListener('canplay', play, { once: true });
+      /* Loop de render: 1 frame por requestAnimationFrame */
+      function renderFrame() {
+        if (vid.paused || vid.ended) { raf = requestAnimationFrame(renderFrame); return; }
+        ctx.drawImage(vid, 0, 0, W, H);
+        try {
+          var id = ctx.getImageData(0, 0, W, H);
+          removeBlack(id);
+          ctx.putImageData(id, 0, 0);
+        } catch(e) { /* cross-origin ou sem suporte — não faz nada */ }
+        raf = requestAnimationFrame(renderFrame);
       }
 
-      /* Tenta de novo no primeiro gesto do usuário (iOS) */
-      ['touchend', 'click'].forEach(function(ev) {
-        document.addEventListener(ev, function() {
-          if (vid.paused) play();
-        }, { once: true });
-      });
+      function startCanvas() {
+        if (!setupCanvas()) return;
+        canvas.style.display = 'block';
+        img.style.display    = 'none';
+        renderFrame();
+      }
+
+      function tryPlay() {
+        vid.muted = true;
+        var p = vid.play();
+        if (p && p.then) {
+          p.then(startCanvas).catch(function() { /* mantém imagem */ });
+        } else {
+          startCanvas();
+        }
+      }
+
+      /* Inicia quando o vídeo tiver frames disponíveis */
+      if (vid.readyState >= 2) {
+        tryPlay();
+      } else {
+        vid.addEventListener('loadeddata', tryPlay, { once: true });
+      }
+
+      /* Retry no primeiro gesto (iOS exige interação do usuário) */
+      function retryOnGesture() {
+        if (!vid.paused) return;
+        tryPlay();
+      }
+      document.addEventListener('touchend', retryOnGesture, { once: true });
+      document.addEventListener('click',    retryOnGesture, { once: true });
     })();
   </script>
 </body>
